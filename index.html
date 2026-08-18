@@ -28,12 +28,22 @@ h3{font-size:18px;font-weight:500;margin:8px 0}.text{font-size:13px;color:#777;l
 footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 @media(max-width:900px){.products{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){nav{display:none}.hero h1{font-size:40px;letter-spacing:6px}.products{grid-template-columns:1fr 1fr;gap:10px}.info{padding:13px}h3{font-size:15px}.text{font-size:12px}.price{font-size:17px}.order{font-size:12px}}
+
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:25px}
+.review{background:#fff;border:1px solid #e8e3dc;border-radius:16px;padding:20px}
+.review .stars{letter-spacing:2px;font-size:18px;margin-bottom:10px}
+.review .review-text{font-size:14px;line-height:1.6;color:#555}
+.review .review-name{font-weight:600;margin-top:14px;font-size:13px}
+.review .review-date{font-size:11px;color:#aaa;margin-top:4px}
+.review-note{text-align:center;color:#777;font-size:13px;line-height:1.5;max-width:700px;margin:0 auto}
+@media(max-width:900px){.reviews{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.reviews{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header><div class="container nav">
 <a class="logo" href="#"><img src="avenza_logo.png" alt="AVENZA"><strong>AVENZA</strong></a>
-<nav><a href="#catalog">Каталог</a><a href="#about">О магазине</a><a href="#contacts">Контакты</a></nav>
+<nav><a href="#catalog">Каталог</a><a href="#about">О магазине</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a></nav>
 </div></header>
 
 <main>
@@ -88,6 +98,15 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </div>
 </div></section>
 
+<section id="reviews"><div class="container">
+<h2>Отзывы наших покупателей</h2>
+<div class="reviews">
+<div class="review"><div class="stars">★★★★★</div><div class="review-text">Здесь будет отзыв вашего покупателя.</div><div class="review-name">Имя покупателя</div><div class="review-date">Дата</div></div>
+<div class="review"><div class="stars">★★★★★</div><div class="review-text">Здесь можно разместить ещё один отзыв.</div><div class="review-name">Имя покупателя</div><div class="review-date">Дата</div></div>
+<div class="review"><div class="stars">★★★★★</div><div class="review-text">Новые отзывы можно добавлять по мере поступления.</div><div class="review-name">Имя покупателя</div><div class="review-date">Дата</div></div>
+</div>
+<div class="review-note">Отзывы добавляются владельцем магазина вручную после получения от покупателей.</div>
+</div></section>
 <section id="contacts"><div class="container"><h2>Контакты</h2><div class="about">
 <div class="box"><h3>Telegram</h3><p><a href="https://t.me/Sh_18o6" target="_blank" rel="noopener">@Sh_18o6</a></p></div>
 <div class="box"><h3>Телефон</h3><p><a href="tel:+998945541806">+998 94 554 18 06</a></p></div>
