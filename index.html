@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AVENZA — каталог товаров для дома и повседневной жизни.">
+<title>AVENZA — Everyday Goods</title>
+<style>
+:root{
+  --bg:#f7f5f1; --card:#fff; --text:#202020; --muted:#777;
+  --accent:#242424; --line:#e8e4dd; --soft:#eeeae3;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+a{text-decoration:none;color:inherit}
+.container{width:min(1160px,92%);margin:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(247,245,241,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:4px}
+.brand img{width:52px;height:52px;object-fit:contain;border-radius:12px}
+.brand span{font-size:20px}
+nav{display:flex;gap:26px;font-size:14px}
+nav a{color:#555}
+nav a:hover{color:#000}
+.hero{padding:55px 0 35px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:35px;align-items:center}
+.hero-copy h1{font-size:clamp(44px,7vw,82px);letter-spacing:10px;margin:0 0 8px;font-weight:500}
+.hero-copy .tag{font-size:13px;letter-spacing:5px;color:#777;margin-bottom:28px}
+.hero-copy p{max-width:560px;line-height:1.7;color:#666;font-size:17px}
+.btn{display:inline-block;margin-top:16px;padding:14px 24px;border-radius:30px;background:var(--accent);color:#fff;font-size:14px}
+.hero-logo{background:#fff;border:1px solid var(--line);border-radius:28px;padding:25px;display:flex;align-items:center;justify-content:center}
+.hero-logo img{width:100%;max-width:420px;display:block}
+.section{padding:35px 0 70px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:25px}
+.section h2{font-size:32px;font-weight:500;margin:0}
+.section-head p{margin:0;color:var(--muted);font-size:14px}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:25px}
+.filter{border:1px solid var(--line);background:#fff;border-radius:22px;padding:10px 17px;cursor:pointer;color:#555}
+.filter.active,.filter:hover{background:#242424;color:#fff;border-color:#242424}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:.2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.07)}
+.card-img{aspect-ratio:3/4;background:#f1eee8;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.card-body{padding:17px}
+.category{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#999}
+.card h3{font-size:18px;font-weight:500;margin:8px 0}
+.desc{font-size:13px;color:#777;line-height:1.5;min-height:39px}
+.price{font-size:20px;font-weight:700;margin-top:13px}
+.buy{display:block;text-align:center;background:#242424;color:#fff;padding:11px;border-radius:12px;margin-top:13px;font-size:13px}
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:10px}
+.info-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}
+.info-card b{font-size:17px}
+.info-card p{color:#777;line-height:1.6;font-size:13px;margin-bottom:0}
+footer{background:#222;color:#fff;padding:40px 0}
+.footer-grid{display:flex;justify-content:space-between;gap:30px;align-items:center}
+footer p{color:#aaa;font-size:13px}
+.footer-brand{letter-spacing:6px;font-size:22px}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){
+  .nav{height:68px}.brand img{width:43px;height:43px}.brand span{font-size:17px}
+  nav{display:none}.hero{padding-top:30px}.hero-copy h1{letter-spacing:6px}
+  .grid{grid-template-columns:1fr 1fr;gap:10px}.card{border-radius:15px}.card-body{padding:12px}
+  .card h3{font-size:15px}.desc{font-size:12px}.price{font-size:17px}.buy{font-size:12px;padding:10px}
+  .info{grid-template-columns:1fr}.section{padding-bottom:45px}
+  .hero-logo{padding:12px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="#">
+      <img src="images/logo.png" alt="AVENZA">
+      <span>AVENZA</span>
+    </a>
+    <nav>
+      <a href="#catalog">Каталог</a>
+      <a href="#about">О магазине</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <h1>AVENZA</h1>
+      <div class="tag">EVERYDAY GOODS</div>
+      <p>Товары, которые делают повседневную жизнь удобнее, уютнее и красивее. Выбирайте понравившиеся товары в нашем каталоге.</p>
+      <a class="btn" href="#catalog">Смотреть каталог</a>
+    </div>
+    <div class="hero-logo"><img src="images/logo.png" alt="Логотип AVENZA"></div>
+  </div>
+</section>
+
+<section class="section" id="catalog">
+<div class="container">
+  <div class="section-head">
+    <div>
+      <h2>Каталог товаров</h2>
+      <p>Фотографии и цены можно менять прямо в файле сайта.</p>
+    </div>
+  </div>
+  <div class="filters">
+    <button class="filter active" data-filter="all">Все товары</button>
+    <button class="filter" data-filter="decor">Декор</button>
+    <button class="filter" data-filter="lighting">Освещение</button>
+    <button class="filter" data-filter="home">Для дома</button>
+  </div>
+
+  <div class="grid">
+    <article class="card" data-category="decor">
+      <div class="card-img"><img src="images/fountain-brown.webp" alt="Настольный фонтан"></div>
+      <div class="card-body">
+        <div class="category">Декор</div>
+        <h3>Настольный фонтан</h3>
+        <div class="desc">Циркуляция воды, мягкая подсветка и декоративный дизайн.</div>
+        <div class="price">Укажите цену</div>
+        <a class="buy" href="#contacts">Заказать</a>
+      </div>
+    </article>
+
+    <article class="card" data-category="decor">
+      <div class="card-img"><img src="images/fountain-silver.webp" alt="Настольный фонтан с чашами"></div>
+      <div class="card-body">
+        <div class="category">Декор</div>
+        <h3>Фонтан с чашами</h3>
+        <div class="desc">Эффект струящейся воды для уютной атмосферы дома.</div>
+        <div class="price">Укажите цену</div>
+        <a class="buy" href="#contacts">Заказать</a>
+      </div>
+    </article>
+
+    <article class="card" data-category="lighting">
+      <div class="card-img"><img src="images/desk-lamp.webp" alt="Настольная лампа"></div>
+      <div class="card-body">
+        <div class="category">Освещение</div>
+        <h3>Настольная лампа</h3>
+        <div class="desc">USB-питание, сенсорное управление и 3 режима яркости.</div>
+        <div class="price">Укажите цену</div>
+        <a class="buy" href="#contacts">Заказать</a>
+      </div>
+    </article>
+
+    <article class="card" data-category="home">
+      <div class="card-img"><img src="images/humidifier.webp" alt="Увлажнитель воздуха"></div>
+      <div class="card-body">
+        <div class="category">Для дома</div>
+        <h3>Увлажнитель воздуха</h3>
+        <div class="desc">Компактный дизайн, USB-питание и тихая работа.</div>
+        <div class="price">Укажите цену</div>
+        <a class="buy" href="#contacts">Заказать</a>
+      </div>
+    </article>
+  </div>
+</div>
+</section>
+
+<section class="section" id="about">
+<div class="container">
+  <div class="section-head"><h2>Почему AVENZA</h2></div>
+  <div class="info">
+    <div class="info-card"><b>Для повседневной жизни</b><p>Подбираем практичные и красивые товары для дома, работы и отдыха.</p></div>
+    <div class="info-card"><b>Удобный каталог</b><p>Фото, описание и цена каждого товара собраны в одном месте.</p></div>
+    <div class="info-card"><b>Простой заказ</b><p>Выбирайте товар и связывайтесь с нами удобным способом.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="section" id="contacts">
+<div class="container">
+  <div class="section-head">
+    <div><h2>Контакты</h2><p>Здесь можно указать Telegram, телефон или Instagram.</p></div>
+  </div>
+  <div class="info">
+    <div class="info-card"><b>Telegram</b><p>@ваш_telegram</p></div>
+    <div class="info-card"><b>Телефон</b><p>+998 XX XXX XX XX</p></div>
+    <div class="info-card"><b>Заказ</b><p>Напишите нам название понравившегося товара.</p></div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div class="footer-brand">AVENZA</div>
+    <p>EVERYDAY GOODS · Каталог товаров</p>
+  </div>
+</footer>
+
+<script>
+const buttons = document.querySelectorAll('.filter');
+const cards = document.querySelectorAll('.card');
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    buttons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    cards.forEach(card => {
+      card.style.display = filter === 'all' || card.dataset.category === filter ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>
