@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AVENZA — Everyday Goods</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f7f5f1;color:#222;font-family:Arial,Helvetica,sans-serif}
+.container{width:92%;max-width:1100px;margin:auto}
+header{background:#fff;border-bottom:1px solid #e8e3dc}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px}
+.logo img{width:55px;height:55px;object-fit:contain}
+.logo strong{font-size:20px;letter-spacing:4px}
+nav a{margin-left:25px;text-decoration:none;color:#555;font-size:14px}
+.hero{text-align:center;padding:55px 15px 45px}
+.hero img{width:min(230px,60%);height:auto}
+.hero h1{font-size:52px;letter-spacing:9px;font-weight:400;margin:15px 0 5px}
+.hero p{letter-spacing:5px;color:#777;font-size:12px}
+.hero .button{display:inline-block;margin-top:22px;background:#222;color:#fff;text-decoration:none;padding:14px 25px;border-radius:30px}
+section{padding:25px 0 65px}
+h2{text-align:center;font-size:30px;font-weight:400;margin:0 0 30px}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:#fff;border:1px solid #e8e3dc;border-radius:18px;overflow:hidden}
+.photo{background:#eeeae4;aspect-ratio:3/4}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.info{padding:18px}
+.category{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#999}
+h3{font-size:19px;font-weight:500;margin:8px 0}
+.text{font-size:13px;color:#777;line-height:1.5;min-height:40px}
+.price{font-size:21px;font-weight:bold;margin-top:15px}
+.order{display:block;text-align:center;background:#222;color:#fff;text-decoration:none;padding:12px;border-radius:10px;margin-top:14px;font-size:13px}
+.about{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.box{background:#fff;border:1px solid #e8e3dc;border-radius:16px;padding:22px;text-align:center}
+.box h3{margin-top:0}
+.box p{font-size:13px;color:#777;line-height:1.5}
+footer{background:#222;color:#fff;text-align:center;padding:35px 15px}
+footer strong{letter-spacing:5px}
+footer p{color:#aaa;font-size:12px}
+@media(max-width:700px){
+nav{display:none}
+.hero h1{font-size:40px;letter-spacing:6px}
+.products{grid-template-columns:1fr 1fr;gap:10px}
+.about{grid-template-columns:1fr}
+.info{padding:13px}
+h3{font-size:15px}
+.text{font-size:12px}
+.price{font-size:17px}
+.order{font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="container nav">
+  <a class="logo" href="#">
+    <img src="logo.png" alt="AVENZA">
+    <strong>AVENZA</strong>
+  </a>
+  <nav>
+    <a href="#catalog">Каталог</a>
+    <a href="#about">О магазине</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+</div>
+</header>
+
+<main>
+<section class="hero">
+  <img src="logo.png" alt="AVENZA">
+  <h1>AVENZA</h1>
+  <p>EVERYDAY GOODS</p>
+  <a class="button" href="#catalog">Смотреть каталог</a>
+</section>
+
+<section id="catalog">
+<div class="container">
+<h2>Каталог товаров</h2>
+<div class="products">
+
+<article class="card">
+  <div class="photo"><img src="fountain-brown.webp" alt="Настольный фонтан"></div>
+  <div class="info">
+    <div class="category">Декор</div>
+    <h3>Настольный фонтан</h3>
+    <div class="text">Стильный декоративный фонтан с циркуляцией воды для уютной атмосферы дома.</div>
+    <div class="price">Укажите цену</div>
+    <a class="order" href="#contacts">Заказать</a>
+  </div>
+</article>
+
+<article class="card">
+  <div class="photo"><img src="fountain-silver.webp" alt="Настольный фонтан"></div>
+  <div class="info">
+    <div class="category">Декор</div>
+    <h3>Фонтан с чашами</h3>
+    <div class="text">Декоративный фонтан с эффектом струящейся воды и спокойной атмосферой.</div>
+    <div class="price">Укажите цену</div>
+    <a class="order" href="#contacts">Заказать</a>
+  </div>
+</article>
+
+<article class="card">
+  <div class="photo"><img src="desk-lamp.webp" alt="Настольная лампа"></div>
+  <div class="info">
+    <div class="category">Освещение</div>
+    <h3>Настольная лампа с органайзером</h3>
+    <div class="text">USB-питание, сенсорное управление, 3 режима яркости и удобный органайзер.</div>
+    <div class="price">Укажите цену</div>
+    <a class="order" href="#contacts">Заказать</a>
+  </div>
+</article>
+
+</div>
+</div>
+</section>
+
+<section id="about">
+<div class="container">
+<h2>AVENZA — Everyday Goods</h2>
+<div class="about">
+  <div class="box"><h3>Для дома</h3><p>Практичные и красивые товары для комфортной повседневной жизни.</p></div>
+  <div class="box"><h3>Удобный выбор</h3><p>Фотографии, описание и цена товаров собраны в одном каталоге.</p></div>
+  <div class="box"><h3>Простой заказ</h3><p>Выберите понравившийся товар и свяжитесь с нами.</p></div>
+</div>
+</div>
+</section>
+
+<section id="contacts">
+<div class="container">
+<h2>Контакты</h2>
+<div class="about">
+  <div class="box"><h3>Telegram</h3><p>@ваш_telegram</p></div>
+  <div class="box"><h3>Телефон</h3><p>+998 XX XXX XX XX</p></div>
+  <div class="box"><h3>Заказ</h3><p>Напишите нам название понравившегося товара.</p></div>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<strong>AVENZA</strong>
+<p>EVERYDAY GOODS</p>
+</footer>
+
+</body>
+</html>
