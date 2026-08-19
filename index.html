@@ -636,12 +636,22 @@ function sendOrderWhatsApp(){
   window.open(url, '_blank');
 }
 
-function sendOrderTelegram(){
+async function sendOrderTelegram(){
   const text = buildOrderText();
   if(!text) return;
-  // Telegram share opens the user's Telegram app/site with the prepared order text.
-  const url = 'https://t.me/share/url?url=' + encodeURIComponent('https://avenza-1.github.io/avenza-catalog/') + '&text=' + encodeURIComponent(text);
-  window.open(url, '_blank');
+  // Открываем напрямую Telegram-аккаунт менеджера, а не страницу «Поделиться».
+  // Текст заказа стараемся автоматически скопировать, чтобы его можно было вставить в чат.
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      showToast('Заказ скопирован — вставьте его в Telegram');
+    } else {
+      showToast('Откройте Telegram и отправьте заказ');
+    }
+  } catch(e) {
+    showToast('Откройте Telegram и отправьте заказ');
+  }
+  window.open('https://t.me/Sh_18o6', '_blank');
 }
 
 function showToast(text){
