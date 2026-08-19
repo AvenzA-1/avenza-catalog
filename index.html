@@ -118,6 +118,13 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   .order-buttons{grid-template-columns:1fr}
 }
 
+
+.category-filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 22px}
+.category-filter{border:1px solid #ddd6ce;background:#fff;color:#555;padding:9px 14px;border-radius:20px;cursor:pointer;font-size:12px;transition:.2s}
+.category-filter:hover{border-color:#222}
+.category-filter.active{background:#222;color:#fff;border-color:#222}
+.filter-empty{display:none;text-align:center;padding:35px 15px;color:#888;grid-column:1/-1}
+
 </style>
 </head>
 <body>
@@ -140,8 +147,16 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
   <div class="search-result" id="searchResult"></div>
 </div>
+
+<div class="category-filters" id="categoryFilters" aria-label="Категории товаров">
+  <button type="button" class="category-filter active" data-category="all">Все товары</button>
+  <button type="button" class="category-filter" data-category="Декор">🌿 Декор</button>
+  <button type="button" class="category-filter" data-category="Освещение">💡 Освещение</button>
+  <button type="button" class="category-filter" data-category="Для дома">🏠 Для дома</button>
+  <button type="button" class="category-filter" data-category="Красота и уход">💇 Красота и уход</button>
+</div>
 <div class="products">
-<article class="card">
+<article class="card" data-category="Декор">
   <div class="photo" data-media="avenza_fountain_brown.webp" onclick="openProduct(this)">
     <img src="avenza_fountain_brown.webp" alt="Настольный фонтан">
   </div>
@@ -159,7 +174,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Декор">
   <div class="photo" data-media="avenza_fountain_silver.webp" onclick="openProduct(this)">
     <img src="avenza_fountain_silver.webp" alt="Фонтан с чашами">
   </div>
@@ -177,7 +192,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Освещение">
   <div class="photo" data-media="avenza_desk_lamp.webp" onclick="openProduct(this)">
     <img src="avenza_desk_lamp.webp" alt="Настольная лампа">
   </div>
@@ -195,7 +210,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Для дома">
   <div class="photo" data-media="avenza_humidifier.webp" onclick="openProduct(this)">
     <img src="avenza_humidifier.webp" alt="Увлажнитель воздуха">
   </div>
@@ -213,7 +228,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Декор">
   <div class="photo" data-media="avenza_fountain_arch.png" onclick="openProduct(this)">
     <img src="avenza_fountain_arch.png" alt="Настольный фонтан «Арка»">
   </div>
@@ -231,7 +246,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Декор">
   <div class="photo" data-media="avenza_fountain_gold_bowls.png" onclick="openProduct(this)">
     <img src="avenza_fountain_gold_bowls.png" alt="Настольный фонтан «Золотые чаши»">
   </div>
@@ -249,7 +264,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Декор">
   <div class="photo" data-media="avenza_fountain_teapot.png" onclick="openProduct(this)">
     <img src="avenza_fountain_teapot.png" alt="Настольный фонтан «Чайник»">
   </div>
@@ -267,7 +282,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Декор">
   <div class="photo" data-media="avenza_fountain_faucet.png" onclick="openProduct(this)">
     <img src="avenza_fountain_faucet.png" alt="Настольный фонтан «Кран»">
   </div>
@@ -285,7 +300,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Декор">
   <div class="photo" data-media="avenza_fountain_ring_gold.png" onclick="openProduct(this)">
     <img src="avenza_fountain_ring_gold.png" alt="Настольный фонтан с LED-подсветкой">
   </div>
@@ -303,7 +318,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Декор">
   <div class="photo" data-media="avenza_fountain_home_office.png" onclick="openProduct(this)">
     <img src="avenza_fountain_home_office.png" alt="Настольный фонтан для дома и офиса">
   </div>
@@ -321,7 +336,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Освещение">
   <div class="photo" data-media="avenza_solar_motion_light.png" onclick="openProduct(this)">
     <img src="avenza_solar_motion_light.png" alt="Солнечный светильник с датчиком движения">
   </div>
@@ -339,7 +354,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Освещение">
   <div class="photo" data-media="avenza_solar_wall_light.png" onclick="openProduct(this)">
     <img src="avenza_solar_wall_light.png" alt="Настенный светильник на солнечной батарее">
   </div>
@@ -357,7 +372,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Освещение">
   <div class="photo" data-media="avenza_led_headlamp.png" onclick="openProduct(this)">
     <img src="avenza_led_headlamp.png" alt="Налобный LED фонарь">
   </div>
@@ -375,7 +390,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Для дома">
   <div class="photo" data-media="avenza_mini_uv_fan.png" onclick="openProduct(this)">
     <img src="avenza_mini_uv_fan.png" alt="Мини-вентилятор с UV-подсветкой">
   </div>
@@ -393,7 +408,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Красота и уход">
   <div class="photo" data-media="avenza_wax_heater.png" onclick="openProduct(this)">
     <img src="avenza_wax_heater.png" alt="Воскоплав для депиляции DELY 500 мл">
   </div>
@@ -411,7 +426,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   </div>
 </article>
 
-<article class="card">
+<article class="card" data-category="Красота и уход">
   <div class="photo" data-media="avenza_hair_styler_set.png" onclick="openProduct(this)">
     <img src="avenza_hair_styler_set.png" alt="Стайлер для волос IPARAH Professional">
   </div>
@@ -427,7 +442,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
       <ul class="specs-data"><li>Профессиональный формат</li><li>Несколько насадок</li><li>Для разных вариантов укладки</li></ul>
     </div>
   </div>
-</article></div></div></section>
+</article><div id="filterEmpty" class="filter-empty">По вашему запросу товары не найдены.</div></div></div></section>
 <section id="about"><div class="container">
 <h2>О магазине AVENZA</h2>
 <div class="about-intro">
@@ -459,6 +474,55 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </div></div></section>
 </main>
 <footer><strong>AVENZA</strong><p>EVERYDAY GOODS</p></footer>
+
+
+<script>
+(function(){
+  const filterButtons = document.querySelectorAll('.category-filter');
+  const cards = document.querySelectorAll('.products .card');
+  const empty = document.getElementById('filterEmpty');
+
+  function getSearchText(){
+    const input = document.querySelector('#productSearch, #searchInput, input[type="search"]');
+    return input ? input.value.trim().toLowerCase() : '';
+  }
+
+  function applyFilters(){
+    const active = document.querySelector('.category-filter.active')?.dataset.category || 'all';
+    const query = getSearchText();
+
+    let visible = 0;
+    cards.forEach(card => {
+      const category = card.dataset.category || '';
+      const text = card.textContent.toLowerCase();
+      const categoryMatch = active === 'all' || category === active;
+      const searchMatch = !query || text.includes(query);
+      const show = categoryMatch && searchMatch;
+      card.style.display = show ? '' : 'none';
+      if(show) visible++;
+    });
+
+    if(empty) empty.style.display = visible ? 'none' : 'block';
+  }
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', function(){
+      filterButtons.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      applyFilters();
+    });
+  });
+
+  // Hook into the existing search input without replacing its current behavior.
+  const searchInput = document.querySelector('#productSearch, #searchInput, input[type="search"]');
+  if(searchInput){
+    searchInput.addEventListener('input', applyFilters);
+  }
+
+  window.applyAvenzaFilters = applyFilters;
+  applyFilters();
+})();
+</script>
 
 </body></html>
 
