@@ -38,6 +38,38 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 .review-note{text-align:center;color:#777;font-size:13px;line-height:1.5;max-width:700px;margin:0 auto}
 @media(max-width:900px){.reviews{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.reviews{grid-template-columns:1fr}}
+
+
+
+
+.details-btn{width:100%;border:0;background:#222;color:#fff;padding:12px;border-radius:10px;margin-top:14px;font-size:13px;cursor:pointer}
+.product-data{display:none}
+.photo{cursor:pointer;position:relative}
+.photo::after{content:"Подробнее";position:absolute;right:9px;bottom:9px;background:rgba(34,34,34,.78);color:#fff;padding:6px 9px;border-radius:8px;font-size:10px}
+.product-modal{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px}
+.product-modal.open{display:flex}
+.product-modal-box{width:min(1000px,96vw);max-height:94vh;background:#fff;border-radius:20px;overflow:auto;position:relative}
+.product-close{position:absolute;right:14px;top:14px;border:0;background:rgba(0,0,0,.7);color:#fff;width:40px;height:40px;border-radius:50%;font-size:25px;cursor:pointer;z-index:4}
+.product-gallery{background:#eeeae4;min-height:430px;display:flex;align-items:center;justify-content:center;padding:18px}
+.product-gallery img,.product-gallery video{max-width:100%;max-height:58vh;object-fit:contain;border-radius:10px}
+.product-content{padding:22px 25px 28px}
+.product-content h2{margin:0 45px 7px 0;text-align:left;font-size:28px}
+.product-content .modal-category{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#999}
+.product-content .modal-price{font-size:22px;font-weight:700;margin:10px 0 18px}
+.short-block{font-size:14px;line-height:1.65;color:#555;margin-bottom:20px}
+.spec-title{font-size:18px;margin:0 0 10px}
+.spec-list{margin:0;padding-left:20px;color:#555;line-height:1.7;font-size:14px}
+.media-thumbs{display:flex;gap:9px;overflow:auto;padding:12px 16px;background:#fff;border-top:1px solid #eee}
+.media-thumb{width:74px;height:74px;flex:0 0 74px;border:2px solid transparent;border-radius:9px;object-fit:cover;cursor:pointer;background:#eee}
+.media-thumb.active{border-color:#222}
+.video-thumb{display:flex;align-items:center;justify-content:center;font-size:26px;color:#222;border:2px solid transparent}
+.media-help{font-size:12px;color:#999;margin-top:18px}
+@media(max-width:600px){
+  .product-gallery{min-height:320px}
+  .product-content{padding:18px}
+  .product-content h2{font-size:21px}
+}
+
 </style>
 </head>
 <body>
@@ -53,136 +85,277 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 
 <section id="catalog"><div class="container"><h2>Каталог товаров</h2>
 <div class="products">
-
 <article class="card">
-<div class="photo"><img src="avenza_fountain_brown.webp" alt="Настольный фонтан"></div>
-<div class="info"><div class="category">Декор</div><h3>Настольный фонтан</h3>
-<div class="text">Циркуляция воды, мягкая подсветка и декоративный дизайн.</div>
-<div class="price">140 000 сум</div><a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%9D%D0%B0%D1%81%D1%82%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D1%84%D0%BE%D0%BD%D1%82%D0%B0%D0%BD%C2%BB%20%D0%B7%D0%B0%20140%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
+  <div class="photo" data-media="avenza_fountain_brown.webp" onclick="openProduct(this)">
+    <img src="avenza_fountain_brown.webp" alt="Настольный фонтан">
+  </div>
+  <div class="info">
+    <div class="category">Декор</div>
+    <h3>Настольный фонтан</h3>
+    <div class="text">Циркуляция воды, мягкая подсветка и декоративный дизайн для уютной атмосферы.</div>
+    <div class="price">140 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Циркуляция воды, мягкая подсветка и декоративный дизайн для уютной атмосферы.</div>
+      <ul class="specs-data"><li>Циркуляция воды</li><li>Мягкая подсветка</li><li>Декоративный дизайн</li></ul>
+    </div>
+  </div>
 </article>
 
 <article class="card">
-<div class="photo"><img src="avenza_fountain_silver.webp" alt="Фонтан с чашами"></div>
-<div class="info"><div class="category">Декор</div><h3>Фонтан с чашами</h3>
-<div class="text">Эффект струящейся воды для уютной атмосферы дома.</div>
-<div class="price">145 000 сум</div><a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%A4%D0%BE%D0%BD%D1%82%D0%B0%D0%BD%20%D1%81%20%D1%87%D0%B0%D1%88%D0%B0%D0%BC%D0%B8%C2%BB%20%D0%B7%D0%B0%20145%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
+  <div class="photo" data-media="avenza_fountain_silver.webp" onclick="openProduct(this)">
+    <img src="avenza_fountain_silver.webp" alt="Фонтан с чашами">
+  </div>
+  <div class="info">
+    <div class="category">Декор</div>
+    <h3>Фонтан с чашами</h3>
+    <div class="text">Эффект струящейся воды для создания уютной и расслабляющей атмосферы дома.</div>
+    <div class="price">145 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Эффект струящейся воды для создания уютной и расслабляющей атмосферы дома.</div>
+      <ul class="specs-data"><li>Цвет чаш: серебристый</li><li>Размер: 15 × 15 × 21 см</li><li>Мягкая подсветка</li></ul>
+    </div>
+  </div>
 </article>
 
 <article class="card">
-<div class="photo"><img src="avenza_desk_lamp.webp" alt="Настольная лампа"></div>
-<div class="info"><div class="category">Освещение</div><h3>Настольная лампа</h3>
-<div class="text">USB-питание, сенсорное управление и 3 режима яркости.</div>
-<div class="price">105 000 сум</div><a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%9D%D0%B0%D1%81%D1%82%D0%BE%D0%BB%D1%8C%D0%BD%D1%83%D1%8E%20%D0%BB%D0%B0%D0%BC%D0%BF%D1%83%C2%BB%20%D0%B7%D0%B0%20105%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
+  <div class="photo" data-media="avenza_desk_lamp.webp" onclick="openProduct(this)">
+    <img src="avenza_desk_lamp.webp" alt="Настольная лампа">
+  </div>
+  <div class="info">
+    <div class="category">Освещение</div>
+    <h3>Настольная лампа</h3>
+    <div class="text">Компактная лампа с USB-питанием, сенсорным управлением и режимами яркости.</div>
+    <div class="price">105 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Компактная лампа с USB-питанием, сенсорным управлением и режимами яркости.</div>
+      <ul class="specs-data"><li>USB-питание</li><li>Сенсорное управление</li><li>3 режима яркости</li></ul>
+    </div>
+  </div>
 </article>
 
 <article class="card">
-<div class="photo"><img src="avenza_humidifier.webp" alt="Увлажнитель воздуха"></div>
-<div class="info"><div class="category">Для дома</div><h3>Увлажнитель воздуха</h3>
-<div class="text">Компактный дизайн, USB-питание и тихая работа.</div>
-<div class="price">85 000 сум</div><a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%A3%D0%B2%D0%BB%D0%B0%D0%B6%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%20%D0%B2%D0%BE%D0%B7%D0%B4%D1%83%D1%85%D0%B0%C2%BB%20%D0%B7%D0%B0%2085%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
+  <div class="photo" data-media="avenza_humidifier.webp" onclick="openProduct(this)">
+    <img src="avenza_humidifier.webp" alt="Увлажнитель воздуха">
+  </div>
+  <div class="info">
+    <div class="category">Для дома</div>
+    <h3>Увлажнитель воздуха</h3>
+    <div class="text">Компактный увлажнитель с USB-питанием и тихой работой для дома и рабочего места.</div>
+    <div class="price">85 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Компактный увлажнитель с USB-питанием и тихой работой для дома и рабочего места.</div>
+      <ul class="specs-data"><li>USB-питание</li><li>Компактный дизайн</li><li>Тихая работа</li></ul>
+    </div>
+  </div>
 </article>
 
 <article class="card">
-<div class="photo"><img src="avenza_fountain_arch.png" alt="Настольный фонтан «Арка»"></div>
-<div class="info"><div class="category">Декор</div><h3>Настольный фонтан «Арка»</h3>
-<div class="text">Цикличное течение воды, тёплая подсветка и натуральные камни для уютной атмосферы.</div><div class="price">140 000 сум</div>
-<a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%9D%D0%B0%D1%81%D1%82%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D1%84%D0%BE%D0%BD%D1%82%D0%B0%D0%BD%20%C2%AB%D0%90%D1%80%D0%BA%D0%B0%C2%BB%C2%BB%20%D0%B7%D0%B0%20140%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
-</article>
-<article class="card">
-<div class="photo"><img src="avenza_fountain_gold_bowls.png" alt="Настольный фонтан «Золотые чаши»"></div>
-<div class="info"><div class="category">Декор</div><h3>Настольный фонтан «Золотые чаши»</h3>
-<div class="text">Плавная циркуляция воды, мягкая подсветка и стильный дизайн для интерьера.</div><div class="price">145 000 сум</div>
-<a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%9D%D0%B0%D1%81%D1%82%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D1%84%D0%BE%D0%BD%D1%82%D0%B0%D0%BD%20%C2%AB%D0%97%D0%BE%D0%BB%D0%BE%D1%82%D1%8B%D0%B5%20%D1%87%D0%B0%D1%88%D0%B8%C2%BB%C2%BB%20%D0%B7%D0%B0%20145%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
-</article>
-<article class="card">
-<div class="photo"><img src="avenza_fountain_teapot.png" alt="Настольный фонтан «Чайник»"></div>
-<div class="info"><div class="category">Декор</div><h3>Настольный фонтан «Чайник»</h3>
-<div class="text">Эффект струящейся воды, тёплый свет и природная композиция с камнями.</div><div class="price">135 000 сум</div>
-<a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%9D%D0%B0%D1%81%D1%82%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D1%84%D0%BE%D0%BD%D1%82%D0%B0%D0%BD%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BD%D0%B8%D0%BA%C2%BB%C2%BB%20%D0%B7%D0%B0%20135%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
-</article>
-<article class="card">
-<div class="photo"><img src="avenza_fountain_faucet.png" alt="Настольный фонтан «Кран»"></div>
-<div class="info"><div class="category">Декор</div><h3>Настольный фонтан «Кран»</h3>
-<div class="text">Декоративная композиция с мягкой подсветкой, плавным течением воды и натуральными камнями.</div><div class="price">135 000 сум</div>
-<a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%9D%D0%B0%D1%81%D1%82%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D1%84%D0%BE%D0%BD%D1%82%D0%B0%D0%BD%20%C2%AB%D0%9A%D1%80%D0%B0%D0%BD%C2%BB%C2%BB%20%D0%B7%D0%B0%20135%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
+  <div class="photo" data-media="avenza_fountain_arch.png" onclick="openProduct(this)">
+    <img src="avenza_fountain_arch.png" alt="Настольный фонтан «Арка»">
+  </div>
+  <div class="info">
+    <div class="category">Декор</div>
+    <h3>Настольный фонтан «Арка»</h3>
+    <div class="text">Цикличное течение воды, тёплая подсветка и натуральные камни.</div>
+    <div class="price">140 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Цикличное течение воды, тёплая подсветка и натуральные камни.</div>
+      <ul class="specs-data"><li>Размер: 15 × 15 × 21 см</li><li>Натуральные камни</li><li>Тёплая подсветка</li></ul>
+    </div>
+  </div>
 </article>
 
 <article class="card">
-<div class="photo"><img src="avenza_fountain_ring_gold.png" alt="Настольный фонтан с LED-подсветкой"></div>
-<div class="info"><div class="category">Декор</div>
-<h3>Настольный фонтан с LED-подсветкой</h3>
-<div class="text">Циркуляция воды, мягкая LED-подсветка, натуральные камни и стильный дизайн для уютной атмосферы.</div>
-<div class="price">250 000 сум</div>
-<a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%9D%D0%B0%D1%81%D1%82%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D1%84%D0%BE%D0%BD%D1%82%D0%B0%D0%BD%20%D1%81%20LED-%D0%BF%D0%BE%D0%B4%D1%81%D0%B2%D0%B5%D1%82%D0%BA%D0%BE%D0%B9%C2%BB%20%D0%B7%D0%B0%20250%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
+  <div class="photo" data-media="avenza_fountain_gold_bowls.png" onclick="openProduct(this)">
+    <img src="avenza_fountain_gold_bowls.png" alt="Настольный фонтан «Золотые чаши»">
+  </div>
+  <div class="info">
+    <div class="category">Декор</div>
+    <h3>Настольный фонтан «Золотые чаши»</h3>
+    <div class="text">Плавная циркуляция воды, мягкая подсветка и стильный дизайн.</div>
+    <div class="price">145 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Плавная циркуляция воды, мягкая подсветка и стильный дизайн.</div>
+      <ul class="specs-data"><li>Цвет чаш: золотистый</li><li>Размер: 15 × 15 × 21 см</li><li>Натуральные камни</li></ul>
+    </div>
+  </div>
 </article>
 
 <article class="card">
-<div class="photo"><img src="avenza_fountain_home_office.png" alt="Настольный фонтан для дома и офиса"></div>
-<div class="info"><div class="category">Декор</div>
-<h3>Настольный фонтан для дома и офиса</h3>
-<div class="text">Декоративный фонтан с плавным течением воды, тихой работой и компактным дизайном. Размер: 31 × 22 × 21,5 см.</div>
-<div class="price">280 000 сум</div>
-<a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%9D%D0%B0%D1%81%D1%82%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D1%84%D0%BE%D0%BD%D1%82%D0%B0%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%B4%D0%BE%D0%BC%D0%B0%20%D0%B8%20%D0%BE%D1%84%D0%B8%D1%81%D0%B0%C2%BB%20%D0%B7%D0%B0%20280%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
-</article>
-
-
-<article class="card">
-<div class="photo"><img src="avenza_solar_motion_light.png" alt="Солнечный светильник с датчиком движения"></div>
-<div class="info"><div class="category">Освещение</div>
-<h3>Солнечный светильник с датчиком движения</h3>
-<div class="text">Солнечная панель, датчик движения, широкий угол 180°, защита IP65 и до 12 часов работы.</div>
-<div class="price">145 000 сум</div>
-<a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%A1%D0%BE%D0%BB%D0%BD%D0%B5%D1%87%D0%BD%D1%8B%D0%B9%20%D1%81%D0%B2%D0%B5%D1%82%D0%B8%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%20%D1%81%20%D0%B4%D0%B0%D1%82%D1%87%D0%B8%D0%BA%D0%BE%D0%BC%20%D0%B4%D0%B2%D0%B8%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F%C2%BB%20%D0%B7%D0%B0%20145%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
-</article>
-
-<article class="card">
-<div class="photo"><img src="avenza_solar_wall_light.png" alt="Настенный светильник на солнечной батарее"></div>
-<div class="info"><div class="category">Освещение</div>
-<h3>Настенный светильник на солнечной батарее</h3>
-<div class="text">Солнечная панель, датчик движения, защита IP65, 7 LED и широкий угол освещения 180°.</div>
-<div class="price">70 000 сум</div>
-<a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%9D%D0%B0%D1%81%D1%82%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D1%81%D0%B2%D0%B5%D1%82%D0%B8%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%20%D0%BD%D0%B0%20%D1%81%D0%BE%D0%BB%D0%BD%D0%B5%D1%87%D0%BD%D0%BE%D0%B9%20%D0%B1%D0%B0%D1%82%D0%B0%D1%80%D0%B5%D0%B5%C2%BB%20%D0%B7%D0%B0%2070%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
+  <div class="photo" data-media="avenza_fountain_teapot.png" onclick="openProduct(this)">
+    <img src="avenza_fountain_teapot.png" alt="Настольный фонтан «Чайник»">
+  </div>
+  <div class="info">
+    <div class="category">Декор</div>
+    <h3>Настольный фонтан «Чайник»</h3>
+    <div class="text">Эффект струящейся воды, тёплый свет и природная композиция с камнями.</div>
+    <div class="price">135 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Эффект струящейся воды, тёплый свет и природная композиция с камнями.</div>
+      <ul class="specs-data"><li>Размер: 16 × 16 × 20 см</li><li>Питание: 2 батарейки AA</li><li>Натуральные камни</li></ul>
+    </div>
+  </div>
 </article>
 
 <article class="card">
-<div class="photo"><img src="avenza_led_headlamp.png" alt="Налобный LED фонарь"></div>
-<div class="info"><div class="category">Освещение</div>
-<h3>Налобный LED фонарь</h3>
-<div class="text">USB-зарядка, 5 режимов работы, до 8 часов работы, лёгкий вес 85 г и регулируемый угол наклона.</div>
-<div class="price">65 000 сум</div>
-<a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%9D%D0%B0%D0%BB%D0%BE%D0%B1%D0%BD%D1%8B%D0%B9%20LED%20%D1%84%D0%BE%D0%BD%D0%B0%D1%80%D1%8C%C2%BB%20%D0%B7%D0%B0%2065%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
+  <div class="photo" data-media="avenza_fountain_faucet.png" onclick="openProduct(this)">
+    <img src="avenza_fountain_faucet.png" alt="Настольный фонтан «Кран»">
+  </div>
+  <div class="info">
+    <div class="category">Декор</div>
+    <h3>Настольный фонтан «Кран»</h3>
+    <div class="text">Декоративная композиция с плавным течением воды, подсветкой и камнями.</div>
+    <div class="price">135 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Декоративная композиция с плавным течением воды, подсветкой и камнями.</div>
+      <ul class="specs-data"><li>Размер: 16 × 16 × 26 см</li><li>Натуральные камни</li><li>Мягкая подсветка</li></ul>
+    </div>
+  </div>
 </article>
 
 <article class="card">
-<div class="photo"><img src="avenza_mini_uv_fan.png" alt="Мини-вентилятор с UV-подсветкой"></div>
-<div class="info"><div class="category">Для дома</div>
-<h3>Мини-вентилятор с UV-подсветкой</h3>
-<div class="text">3 режима обдува, UV-подсветка, тихая работа, USB-питание и регулируемый угол наклона.</div>
-<div class="price">35 000 сум</div>
-<a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%9C%D0%B8%D0%BD%D0%B8-%D0%B2%D0%B5%D0%BD%D1%82%D0%B8%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20%D1%81%20UV-%D0%BF%D0%BE%D0%B4%D1%81%D0%B2%D0%B5%D1%82%D0%BA%D0%BE%D0%B9%C2%BB%20%D0%B7%D0%B0%2035%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
-</article>
-
-
-<article class="card">
-<div class="photo"><img src="avenza_wax_heater.png" alt="Воскоплав для депиляции DELY 500 мл"></div>
-<div class="info"><div class="category">Красота и уход</div>
-<h3>Воскоплав для депиляции DELY 500 мл</h3>
-<div class="text">Объём 500 мл, быстрый нагрев, термостойкий корпус, подходит для разных видов воска и легко очищается.</div>
-<div class="price">65 000 сум</div>
-<a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%92%D0%BE%D1%81%D0%BA%D0%BE%D0%BF%D0%BB%D0%B0%D0%B2%20%D0%B4%D0%BB%D1%8F%20%D0%B4%D0%B5%D0%BF%D0%B8%D0%BB%D1%8F%D1%86%D0%B8%D0%B8%20DELY%20500%20%D0%BC%D0%BB%C2%BB%20%D0%B7%D0%B0%2065%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
+  <div class="photo" data-media="avenza_fountain_ring_gold.png" onclick="openProduct(this)">
+    <img src="avenza_fountain_ring_gold.png" alt="Настольный фонтан с LED-подсветкой">
+  </div>
+  <div class="info">
+    <div class="category">Декор</div>
+    <h3>Настольный фонтан с LED-подсветкой</h3>
+    <div class="text">Фонтан с LED-подсветкой, натуральными камнями и стильным дизайном.</div>
+    <div class="price">250 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Фонтан с LED-подсветкой, натуральными камнями и стильным дизайном.</div>
+      <ul class="specs-data"><li>LED-подсветка</li><li>Натуральные камни</li><li>Автоотключение при недостатке воды</li></ul>
+    </div>
+  </div>
 </article>
 
 <article class="card">
-<div class="photo"><img src="avenza_hair_styler_set.png" alt="Стайлер для волос IPARAH Professional"></div>
-<div class="info"><div class="category">Красота и уход</div>
-<h3>Стайлер для волос IPARAH Professional</h3>
-<div class="text">Профессиональный стайлер с насадками для укладки волос и создания разных образов.</div>
-<div class="price">885 000 сум</div>
-<a class="order" href="https://t.me/Sh_18o6?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%C2%AB%D0%A1%D1%82%D0%B0%D0%B9%D0%BB%D0%B5%D1%80%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D0%BE%D0%BB%D0%BE%D1%81%20IPARAH%20Professional%C2%BB%20%D0%B7%D0%B0%20885%20000%20%D1%81%D1%83%D0%BC." target="_blank" rel="noopener">Заказать</a></div>
+  <div class="photo" data-media="avenza_fountain_home_office.png" onclick="openProduct(this)">
+    <img src="avenza_fountain_home_office.png" alt="Настольный фонтан для дома и офиса">
+  </div>
+  <div class="info">
+    <div class="category">Декор</div>
+    <h3>Настольный фонтан для дома и офиса</h3>
+    <div class="text">Декоративный фонтан с плавным течением воды, тихой работой и компактным дизайном.</div>
+    <div class="price">280 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Декоративный фонтан с плавным течением воды, тихой работой и компактным дизайном.</div>
+      <ul class="specs-data"><li>Высота: 31 см</li><li>Ширина: 22 см</li><li>Длина: 21,5 см</li><li>Вес: 920 г</li></ul>
+    </div>
+  </div>
 </article>
 
-</div></div></section>
+<article class="card">
+  <div class="photo" data-media="avenza_solar_motion_light.png" onclick="openProduct(this)">
+    <img src="avenza_solar_motion_light.png" alt="Солнечный светильник с датчиком движения">
+  </div>
+  <div class="info">
+    <div class="category">Освещение</div>
+    <h3>Солнечный светильник с датчиком движения</h3>
+    <div class="text">Автономный светильник на солнечной энергии для дома, двора и участка.</div>
+    <div class="price">145 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Автономный светильник на солнечной энергии для дома, двора и участка.</div>
+      <ul class="specs-data"><li>Солнечная панель</li><li>Датчик движения</li><li>Угол освещения: 180°</li><li>Защита IP65</li><li>До 12 часов работы</li></ul>
+    </div>
+  </div>
+</article>
 
+<article class="card">
+  <div class="photo" data-media="avenza_solar_wall_light.png" onclick="openProduct(this)">
+    <img src="avenza_solar_wall_light.png" alt="Настенный светильник на солнечной батарее">
+  </div>
+  <div class="info">
+    <div class="category">Освещение</div>
+    <h3>Настенный светильник на солнечной батарее</h3>
+    <div class="text">Настенный светильник без проводов и электричества с датчиком движения.</div>
+    <div class="price">70 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Настенный светильник без проводов и электричества с датчиком движения.</div>
+      <ul class="specs-data"><li>Солнечная панель</li><li>Датчик движения</li><li>7 LED</li><li>Защита IP65</li><li>Угол освещения: 180°</li></ul>
+    </div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="photo" data-media="avenza_led_headlamp.png" onclick="openProduct(this)">
+    <img src="avenza_led_headlamp.png" alt="Налобный LED фонарь">
+  </div>
+  <div class="info">
+    <div class="category">Освещение</div>
+    <h3>Налобный LED фонарь</h3>
+    <div class="text">Яркий налобный фонарь с USB-зарядкой для работы, отдыха и активного отдыха.</div>
+    <div class="price">65 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Яркий налобный фонарь с USB-зарядкой для работы, отдыха и активного отдыха.</div>
+      <ul class="specs-data"><li>700 люмен</li><li>USB-зарядка</li><li>5 режимов</li><li>До 8 часов работы</li><li>Вес: 85 г</li><li>Защита IPX4</li></ul>
+    </div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="photo" data-media="avenza_mini_uv_fan.png" onclick="openProduct(this)">
+    <img src="avenza_mini_uv_fan.png" alt="Мини-вентилятор с UV-подсветкой">
+  </div>
+  <div class="info">
+    <div class="category">Для дома</div>
+    <h3>Мини-вентилятор с UV-подсветкой</h3>
+    <div class="text">Компактный USB-вентилятор с UV-подсветкой, 3 режимами и регулируемым углом.</div>
+    <div class="price">35 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Компактный USB-вентилятор с UV-подсветкой, 3 режимами и регулируемым углом.</div>
+      <ul class="specs-data"><li>3 режима обдува</li><li>UV-подсветка</li><li>USB-питание</li><li>Регулируемый угол наклона</li><li>Тихая работа</li></ul>
+    </div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="photo" data-media="avenza_wax_heater.png" onclick="openProduct(this)">
+    <img src="avenza_wax_heater.png" alt="Воскоплав для депиляции DELY 500 мл">
+  </div>
+  <div class="info">
+    <div class="category">Красота и уход</div>
+    <h3>Воскоплав для депиляции DELY 500 мл</h3>
+    <div class="text">Воскоплав с чашей 500 мл для удобного разогрева воска.</div>
+    <div class="price">65 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Воскоплав с чашей 500 мл для удобного разогрева воска.</div>
+      <ul class="specs-data"><li>Объём: 500 мл</li><li>Быстрый нагрев</li><li>Термостойкий корпус</li><li>Подходит для разных видов воска</li><li>Легко очищается</li></ul>
+    </div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="photo" data-media="avenza_hair_styler_set.png" onclick="openProduct(this)">
+    <img src="avenza_hair_styler_set.png" alt="Стайлер для волос IPARAH Professional">
+  </div>
+  <div class="info">
+    <div class="category">Красота и уход</div>
+    <h3>Стайлер для волос IPARAH Professional</h3>
+    <div class="text">Профессиональный набор для укладки волос с несколькими насадками.</div>
+    <div class="price">885 000 сум</div>
+    <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <div class="product-data">
+      <div class="short-desc">Профессиональный набор для укладки волос с несколькими насадками.</div>
+      <ul class="specs-data"><li>Профессиональный формат</li><li>Несколько насадок</li><li>Для разных вариантов укладки</li></ul>
+    </div>
+  </div>
+</article></div></div></section>
 <section id="about"><div class="container">
 <h2>О магазине AVENZA</h2>
 <div class="about-intro">
@@ -213,4 +386,80 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </div></div></section>
 </main>
 <footer><strong>AVENZA</strong><p>EVERYDAY GOODS</p></footer>
+
 </body></html>
+<div class="product-modal" id="productModal" aria-hidden="true">
+  <div class="product-modal-box">
+    <button class="product-close" onclick="closeProduct()">×</button>
+    <div class="product-gallery" id="productGallery"></div>
+    <div class="media-thumbs" id="mediaThumbs"></div>
+    <div class="product-content">
+      <div class="modal-category" id="modalCategory"></div>
+      <h2 id="modalTitle"></h2>
+      <div class="modal-price" id="modalPrice"></div>
+      <div class="short-block"><strong>Краткое описание</strong><div id="modalShort"></div></div>
+      <h3 class="spec-title">Характеристики</h3>
+      <ul class="spec-list" id="modalSpecs"></ul>
+      <div class="media-help">Для добавления нескольких фото или видео укажите их названия через запятую в data-media, например: photo1.webp, photo2.webp, video.mp4.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentMedia = [];
+
+function openProduct(photoEl){
+  const card = photoEl.closest('.card');
+  const photo = card.querySelector('.photo');
+  const media = (photo.dataset.media || photo.querySelector('img')?.src || '')
+    .split(',').map(x=>x.trim()).filter(Boolean);
+
+  currentMedia = media.map(src => ({
+    src,
+    video: /\.(mp4|webm|ogg)(\?|$)/i.test(src)
+  }));
+
+  document.getElementById('modalCategory').textContent = card.querySelector('.category')?.textContent || '';
+  document.getElementById('modalTitle').textContent = card.querySelector('h3')?.textContent || '';
+  document.getElementById('modalPrice').textContent = card.querySelector('.price')?.textContent || '';
+  document.getElementById('modalShort').textContent = card.querySelector('.short-desc')?.textContent || '';
+  document.getElementById('modalSpecs').innerHTML =
+    card.querySelector('.specs-data')?.innerHTML || '<li>Характеристики пока не добавлены</li>';
+
+  renderMedia(0);
+  document.getElementById('productModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderMedia(index){
+  if(!currentMedia.length) return;
+  const main = document.getElementById('productGallery');
+  const item = currentMedia[index];
+
+  main.innerHTML = item.video
+    ? `<video src="${item.src}" controls playsinline></video>`
+    : `<img src="${item.src}" alt="">`;
+
+  document.getElementById('mediaThumbs').innerHTML = currentMedia.map((m,i)=>{
+    if(m.video){
+      return `<button class="media-thumb video-thumb ${i===index?'active':''}" onclick="renderMedia(${i})" aria-label="Видео">▶</button>`;
+    }
+    return `<img class="media-thumb ${i===index?'active':''}" src="${m.src}" alt="" onclick="renderMedia(${i})">`;
+  }).join('');
+}
+
+function closeProduct(){
+  document.getElementById('productModal').classList.remove('open');
+  document.getElementById('productGallery').innerHTML = '';
+  document.body.style.overflow = '';
+}
+
+document.getElementById('productModal').addEventListener('click', e=>{
+  if(e.target.id === 'productModal') closeProduct();
+});
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape') closeProduct();
+});
+</script>
+</body>
+</html>
