@@ -126,7 +126,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 .filter-empty{display:none;text-align:center;padding:35px 15px;color:#888;grid-column:1/-1}
 
 
-.favorite-btn{pointer-events:auto;position:absolute;top:10px;right:10px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.94);box-shadow:0 2px 9px rgba(0,0,0,.12);font-size:21px;line-height:38px;text-align:center;cursor:pointer;z-index:2;color:#555;transition:.2s}
+.favorite-btn{position:absolute;top:10px;right:10px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.96);box-shadow:0 2px 9px rgba(0,0,0,.12);font-size:21px;line-height:38px;text-align:center;cursor:pointer;transition:.2s;color:#555;z-index:20;pointer-events:auto}
 .favorite-btn:hover{transform:scale(1.06)}
 .favorite-btn.active{color:#d94b67;background:#fff}
 .favorites-link{position:relative;display:inline-flex;align-items:center;gap:5px}
@@ -136,6 +136,22 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 .favorites-empty{display:none;text-align:center;padding:35px 15px;color:#888;grid-column:1/-1}
 
 </style>
+
+<script>
+/* AVENZA: intercept favorite heart clicks before the product photo handler. */
+document.addEventListener('click', function(e){
+  const heart = e.target.closest('.favorite-btn');
+  if(!heart) return;
+  e.preventDefault();
+  e.stopPropagation();
+  if(typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+  const card = heart.closest('.card');
+  if(card && typeof window.toggleFavorite === 'function'){
+    window.toggleFavorite(card);
+  }
+}, true);
+</script>
+
 </head>
 <body>
 <header><div class="container nav">
@@ -167,7 +183,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 <button type="button" class="favorite-filter-btn" id="favoritesFilter" onclick="toggleFavoritesView(); return false;">♡ Избранное</button></div>
 <div class="products">
 <article class="card" data-category="Декор">
-  <div class="photo" data-media="avenza_fountain_brown.webp" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_fountain_brown.webp" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_fountain_brown.webp" alt="Настольный фонтан">
   <div id="favoritesEmpty" class="favorites-empty">У вас пока нет избранных товаров ❤️</div></div>
   <div class="info">
@@ -185,7 +201,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Декор">
-  <div class="photo" data-media="avenza_fountain_silver.webp" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_fountain_silver.webp" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_fountain_silver.webp" alt="Фонтан с чашами">
   </div>
   <div class="info">
@@ -203,7 +219,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Освещение">
-  <div class="photo" data-media="avenza_desk_lamp.webp" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_desk_lamp.webp" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_desk_lamp.webp" alt="Настольная лампа">
   </div>
   <div class="info">
@@ -221,7 +237,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Для дома">
-  <div class="photo" data-media="avenza_humidifier.webp" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_humidifier.webp" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_humidifier.webp" alt="Увлажнитель воздуха">
   </div>
   <div class="info">
@@ -239,7 +255,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Декор">
-  <div class="photo" data-media="avenza_fountain_arch.png" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_fountain_arch.png" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_fountain_arch.png" alt="Настольный фонтан «Арка»">
   </div>
   <div class="info">
@@ -257,7 +273,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Декор">
-  <div class="photo" data-media="avenza_fountain_gold_bowls.png" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_fountain_gold_bowls.png" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_fountain_gold_bowls.png" alt="Настольный фонтан «Золотые чаши»">
   </div>
   <div class="info">
@@ -275,7 +291,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Декор">
-  <div class="photo" data-media="avenza_fountain_teapot.png" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_fountain_teapot.png" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_fountain_teapot.png" alt="Настольный фонтан «Чайник»">
   </div>
   <div class="info">
@@ -293,7 +309,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Декор">
-  <div class="photo" data-media="avenza_fountain_faucet.png" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_fountain_faucet.png" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_fountain_faucet.png" alt="Настольный фонтан «Кран»">
   </div>
   <div class="info">
@@ -311,7 +327,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Декор">
-  <div class="photo" data-media="avenza_fountain_ring_gold.png" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_fountain_ring_gold.png" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_fountain_ring_gold.png" alt="Настольный фонтан с LED-подсветкой">
   </div>
   <div class="info">
@@ -329,7 +345,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Декор">
-  <div class="photo" data-media="avenza_fountain_home_office.png" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_fountain_home_office.png" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_fountain_home_office.png" alt="Настольный фонтан для дома и офиса">
   </div>
   <div class="info">
@@ -347,7 +363,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Освещение">
-  <div class="photo" data-media="avenza_solar_motion_light.png" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_solar_motion_light.png" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_solar_motion_light.png" alt="Солнечный светильник с датчиком движения">
   </div>
   <div class="info">
@@ -365,7 +381,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Освещение">
-  <div class="photo" data-media="avenza_solar_wall_light.png" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_solar_wall_light.png" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_solar_wall_light.png" alt="Настенный светильник на солнечной батарее">
   </div>
   <div class="info">
@@ -383,7 +399,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Освещение">
-  <div class="photo" data-media="avenza_led_headlamp.png" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_led_headlamp.png" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_led_headlamp.png" alt="Налобный LED фонарь">
   </div>
   <div class="info">
@@ -401,7 +417,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Для дома">
-  <div class="photo" data-media="avenza_mini_uv_fan.png" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_mini_uv_fan.png" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_mini_uv_fan.png" alt="Мини-вентилятор с UV-подсветкой">
   </div>
   <div class="info">
@@ -419,7 +435,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Красота и уход">
-  <div class="photo" data-media="avenza_wax_heater.png" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_wax_heater.png" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_wax_heater.png" alt="Воскоплав для депиляции DELY 500 мл">
   </div>
   <div class="info">
@@ -437,7 +453,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </article>
 
 <article class="card" data-category="Красота и уход">
-  <div class="photo" data-media="avenza_hair_styler_set.png" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
+  <div class="photo" data-media="avenza_hair_styler_set.png" onclick="openProduct(this)"><button type="button" class="favorite-btn">♡</button>
     <img src="avenza_hair_styler_set.png" alt="Стайлер для волос IPARAH Professional">
   </div>
   <div class="info">
