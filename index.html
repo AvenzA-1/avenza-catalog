@@ -126,7 +126,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 .filter-empty{display:none;text-align:center;padding:35px 15px;color:#888;grid-column:1/-1}
 
 
-.favorite-btn{position:absolute;top:10px;right:10px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.94);box-shadow:0 2px 9px rgba(0,0,0,.12);font-size:21px;line-height:38px;text-align:center;cursor:pointer;z-index:2;color:#555;transition:.2s}
+.favorite-btn{pointer-events:auto;position:absolute;top:10px;right:10px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.94);box-shadow:0 2px 9px rgba(0,0,0,.12);font-size:21px;line-height:38px;text-align:center;cursor:pointer;z-index:2;color:#555;transition:.2s}
 .favorite-btn:hover{transform:scale(1.06)}
 .favorite-btn.active{color:#d94b67;background:#fff}
 .favorites-link{position:relative;display:inline-flex;align-items:center;gap:5px}
@@ -164,7 +164,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   <button type="button" class="category-filter" data-category="Освещение">💡 Освещение</button>
   <button type="button" class="category-filter" data-category="Для дома">🏠 Для дома</button>
   <button type="button" class="category-filter" data-category="Красота и уход">💇 Красота и уход</button>
-<button type="button" class="favorite-filter-btn" id="favoritesFilter">♡ Избранное</button></div>
+<button type="button" class="favorite-filter-btn" id="favoritesFilter" onclick="toggleFavoritesView(); return false;">♡ Избранное</button></div>
 <div class="products">
 <article class="card" data-category="Декор">
   <div class="photo" data-media="avenza_fountain_brown.webp" onclick="openProduct(this)"><button type="button" class="favorite-btn" aria-label="Добавить в избранное" onclick="toggleFavorite(this.closest(\'.card\'));event.stopPropagation()">♡</button>
@@ -541,83 +541,86 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   let favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY) || '[]');
   let favoritesOnly = false;
 
-  function saveFavorites(){
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
-    updateFavoriteUI();
-    if(window.applyAvenzaFilters) window.applyAvenzaFilters();
-    else applyFavoritesFilter();
-  }
-
   function getCardId(card){
     const title = (card.querySelector('h3')?.textContent || '').trim();
     const price = (card.querySelector('.price')?.textContent || '').trim();
     return title + '|' + price;
   }
 
+  function saveFavorites(){
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+    updateFavoriteUI();
+    applyFavoritesView();
+  }
+
   window.toggleFavorite = function(card){
+    if(!card) return false;
     const id = getCardId(card);
     if(favorites.includes(id)){
       favorites = favorites.filter(x => x !== id);
-    }else{
+    } else {
       favorites.push(id);
     }
     saveFavorites();
+    return false;
+  };
+
+  window.toggleFavoritesView = function(){
+    favoritesOnly = !favoritesOnly;
+    const btn = document.getElementById('favoritesFilter');
+    if(btn) btn.classList.toggle('active', favoritesOnly);
+    applyFavoritesView();
+    document.getElementById('catalog')?.scrollIntoView({behavior:'smooth'});
+    return false;
   };
 
   function updateFavoriteUI(){
     const count = document.getElementById('favoritesCount');
     if(count) count.textContent = favorites.length;
 
-    document.querySelectorAll('.card').forEach(card=>{
-      const active = favorites.includes(getCardId(card));
+    document.querySelectorAll('.card').forEach(card => {
       const btn = card.querySelector('.favorite-btn');
-      if(btn){
-        btn.classList.toggle('active', active);
-        btn.textContent = active ? '♥' : '♡';
-        btn.setAttribute('aria-label', active ? 'Убрать из избранного' : 'Добавить в избранное');
-      }
+      if(!btn) return;
+      const active = favorites.includes(getCardId(card));
+      btn.classList.toggle('active', active);
+      btn.textContent = active ? '♥' : '♡';
+      btn.setAttribute('aria-label', active ? 'Убрать из избранного' : 'Добавить в избранное');
     });
   }
 
-  function applyFavoritesFilter(){
+  function applyFavoritesView(){
     const empty = document.getElementById('favoritesEmpty');
     let visible = 0;
-    document.querySelectorAll('.products .card').forEach(card=>{
-      const show = !favoritesOnly || favorites.includes(getCardId(card));
-      if(show) visible++;
-      // Do not override an existing category/search hide if this card was hidden.
-      if(favoritesOnly){
-        card.dataset.favoriteHidden = show ? '0' : '1';
-        card.style.display = show ? '' : 'none';
+
+    document.querySelectorAll('.products .card').forEach(card => {
+      if(!favoritesOnly){
+        card.style.display = '';
+        return;
       }
+      const show = favorites.includes(getCardId(card));
+      card.style.display = show ? '' : 'none';
+      if(show) visible++;
     });
+
     if(empty) empty.style.display = (favoritesOnly && visible === 0) ? 'block' : 'none';
   }
 
-  const favBtn = document.getElementById('favoritesFilter');
-  if(favBtn){
-    favBtn.addEventListener('click', ()=>{
-      favoritesOnly = !favoritesOnly;
-      favBtn.classList.toggle('active', favoritesOnly);
-      applyFavoritesFilter();
-    });
-  }
-
-  // Header link opens the favorites-only view and scrolls to catalog.
   const openFav = document.getElementById('openFavorites');
   if(openFav){
-    openFav.addEventListener('click', e=>{
+    openFav.onclick = function(e){
       e.preventDefault();
+      e.stopPropagation();
       favoritesOnly = true;
-      if(favBtn){
-        favBtn.classList.add('active');
-      }
-      applyFavoritesFilter();
+      const btn = document.getElementById('favoritesFilter');
+      if(btn) btn.classList.add('active');
+      applyFavoritesView();
       document.getElementById('catalog')?.scrollIntoView({behavior:'smooth'});
-    });
+      return false;
+    };
   }
 
   updateFavoriteUI();
+  applyFavoritesView();
 })();
 </script>
 
