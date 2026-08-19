@@ -76,7 +76,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 .add-cart-btn{width:100%;border:0;background:#222;color:#fff;padding:12px;border-radius:10px;margin-top:9px;font-size:13px;cursor:pointer;transition:.2s}
 .add-cart-btn:hover{opacity:.88}
 .cart-drawer{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;z-index:1100}
-.cart-drawer.open{display:block}
+.cart-drawer.open{display:block !important}
 .cart-panel{position:absolute;right:0;top:0;height:100%;width:min(480px,96vw);background:#fff;box-shadow:-10px 0 35px rgba(0,0,0,.18);display:flex;flex-direction:column}
 .cart-head{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;border-bottom:1px solid #eee}
 .cart-head h2{margin:0;font-size:22px}
@@ -113,7 +113,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 <body>
 <header><div class="container nav">
 <a class="logo" href="#"><img src="avenza_logo.png" alt="AVENZA"><strong>AVENZA</strong></a>
-<nav><a href="#catalog">Каталог</a><a href="#about">О магазине</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a></nav>
+<nav><a href="#cart" class="cart-link" id="openCart" onclick="openCart();return false;">🛒 Корзина <span class="cart-count" id="cartCount">0</span></a><a href="#catalog">Каталог</a><a href="#about">О магазине</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a></nav>
 </div></header>
 
 <main>
@@ -638,10 +638,7 @@ function showToast(text){
   window.__toastTimer=setTimeout(()=>t.classList.remove('show'),1800);
 }
 
-document.getElementById('openCart')?.addEventListener('click', e=>{
-  e.preventDefault();
-  openCart();
-});
+
 document.getElementById('closeCart')?.addEventListener('click', closeCart);
 document.getElementById('cartDrawer')?.addEventListener('click', e=>{
   if(e.target.id==='cartDrawer') closeCart();
@@ -649,6 +646,16 @@ document.getElementById('cartDrawer')?.addEventListener('click', e=>{
 document.addEventListener('keydown', e=>{
   if(e.key==='Escape') closeCart();
 });
+
+document.addEventListener('click', function(e){
+  const cartLink = e.target.closest('#openCart');
+  if(cartLink){
+    e.preventDefault();
+    e.stopPropagation();
+    openCart();
+  }
+});
+
 renderCart();
 </script>
 
