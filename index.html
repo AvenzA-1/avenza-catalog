@@ -135,6 +135,55 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 .favorite-filter-btn.active{background:#222;color:#fff;border-color:#222}
 .favorites-empty{display:none;text-align:center;padding:35px 15px;color:#888;grid-column:1/-1}
 
+
+/* AVENZA Support */
+.support-chat{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:1200;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:13px 18px;
+  border-radius:999px;
+  background:#222;
+  color:#fff;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:600;
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.support-chat:hover{
+  transform:translateY(-2px);
+  box-shadow:0 11px 28px rgba(0,0,0,.23);
+}
+.support-chat-icon{
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#fff;
+  color:#222;
+  font-size:16px;
+}
+.support-chat-text{white-space:nowrap}
+@media(max-width:600px){
+  .support-chat{
+    right:14px;
+    bottom:14px;
+    width:52px;
+    height:52px;
+    padding:0;
+    justify-content:center;
+    border-radius:50%;
+  }
+  .support-chat-icon{width:32px;height:32px;font-size:18px}
+  .support-chat-text{display:none}
+}
 </style>
 
 <style id="avenza-product-labels-style">
@@ -517,6 +566,11 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 </div></div></section>
 </main>
 <footer><strong>AVENZA</strong><p>EVERYDAY GOODS</p></footer>
+<a class="support-chat" href="https://t.me/AVENZA_support_bot" target="_blank" rel="noopener" aria-label="Чат поддержки AVENZA" title="Чат поддержки AVENZA">
+  <span class="support-chat-icon">💬</span>
+  <span class="support-chat-text">Чат поддержки</span>
+</a>
+
 
 
 <script>
