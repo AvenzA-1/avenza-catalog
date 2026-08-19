@@ -70,6 +70,44 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   .product-content h2{font-size:21px}
 }
 
+
+.cart-link{position:relative}
+.cart-count{display:inline-flex;align-items:center;justify-content:center;min-width:19px;height:19px;padding:0 5px;border-radius:20px;background:#222;color:#fff;font-size:11px;margin-left:4px}
+.add-cart-btn{width:100%;border:0;background:#222;color:#fff;padding:12px;border-radius:10px;margin-top:9px;font-size:13px;cursor:pointer;transition:.2s}
+.add-cart-btn:hover{opacity:.88}
+.cart-drawer{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;z-index:1100}
+.cart-drawer.open{display:block}
+.cart-panel{position:absolute;right:0;top:0;height:100%;width:min(480px,96vw);background:#fff;box-shadow:-10px 0 35px rgba(0,0,0,.18);display:flex;flex-direction:column}
+.cart-head{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;border-bottom:1px solid #eee}
+.cart-head h2{margin:0;font-size:22px}
+.cart-close{border:0;background:#f2f2f2;width:38px;height:38px;border-radius:50%;font-size:23px;cursor:pointer}
+.cart-items{padding:14px 18px;overflow:auto;flex:1}
+.cart-empty{text-align:center;color:#888;padding:60px 20px}
+.cart-item{display:grid;grid-template-columns:70px 1fr auto;gap:12px;padding:13px 0;border-bottom:1px solid #eee}
+.cart-item img{width:70px;height:70px;object-fit:cover;border-radius:10px;background:#eee}
+.cart-item h4{margin:0 0 5px;font-size:14px;line-height:1.3}
+.cart-item-price{font-size:13px;color:#555}
+.qty{display:flex;align-items:center;gap:7px;margin-top:9px}
+.qty button{width:27px;height:27px;border:1px solid #ddd;background:#fff;border-radius:7px;cursor:pointer}
+.qty span{min-width:18px;text-align:center;font-size:13px}
+.remove-item{border:0;background:none;color:#999;cursor:pointer;font-size:18px}
+.cart-bottom{border-top:1px solid #eee;padding:17px 18px;background:#fff}
+.cart-total{display:flex;justify-content:space-between;font-size:18px;font-weight:700;margin-bottom:13px}
+.order-form{display:grid;gap:9px}
+.order-form input,.order-form textarea{width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:9px;padding:11px;font:inherit}
+.order-form textarea{min-height:65px;resize:vertical}
+.order-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.order-btn{border:0;border-radius:9px;padding:12px;cursor:pointer;font-size:13px;font-weight:600}
+.order-telegram{background:#229ed9;color:#fff}
+.order-whatsapp{background:#25d366;color:#fff}
+.order-note{font-size:11px;color:#888;line-height:1.4;margin-top:8px}
+.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(20px);background:#222;color:#fff;padding:11px 16px;border-radius:10px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:1300}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:600px){
+  .cart-link{font-size:12px}
+  .order-buttons{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -95,6 +133,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Циркуляция воды, мягкая подсветка и декоративный дизайн для уютной атмосферы.</div>
     <div class="price">140 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Циркуляция воды, мягкая подсветка и декоративный дизайн для уютной атмосферы.</div>
       <ul class="specs-data"><li>Циркуляция воды</li><li>Мягкая подсветка</li><li>Декоративный дизайн</li></ul>
@@ -112,6 +151,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Эффект струящейся воды для создания уютной и расслабляющей атмосферы дома.</div>
     <div class="price">145 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Эффект струящейся воды для создания уютной и расслабляющей атмосферы дома.</div>
       <ul class="specs-data"><li>Цвет чаш: серебристый</li><li>Размер: 15 × 15 × 21 см</li><li>Мягкая подсветка</li></ul>
@@ -129,6 +169,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Компактная лампа с USB-питанием, сенсорным управлением и режимами яркости.</div>
     <div class="price">105 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Компактная лампа с USB-питанием, сенсорным управлением и режимами яркости.</div>
       <ul class="specs-data"><li>USB-питание</li><li>Сенсорное управление</li><li>3 режима яркости</li></ul>
@@ -146,6 +187,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Компактный увлажнитель с USB-питанием и тихой работой для дома и рабочего места.</div>
     <div class="price">85 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Компактный увлажнитель с USB-питанием и тихой работой для дома и рабочего места.</div>
       <ul class="specs-data"><li>USB-питание</li><li>Компактный дизайн</li><li>Тихая работа</li></ul>
@@ -163,6 +205,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Цикличное течение воды, тёплая подсветка и натуральные камни.</div>
     <div class="price">140 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Цикличное течение воды, тёплая подсветка и натуральные камни.</div>
       <ul class="specs-data"><li>Размер: 15 × 15 × 21 см</li><li>Натуральные камни</li><li>Тёплая подсветка</li></ul>
@@ -180,6 +223,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Плавная циркуляция воды, мягкая подсветка и стильный дизайн.</div>
     <div class="price">145 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Плавная циркуляция воды, мягкая подсветка и стильный дизайн.</div>
       <ul class="specs-data"><li>Цвет чаш: золотистый</li><li>Размер: 15 × 15 × 21 см</li><li>Натуральные камни</li></ul>
@@ -197,6 +241,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Эффект струящейся воды, тёплый свет и природная композиция с камнями.</div>
     <div class="price">135 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Эффект струящейся воды, тёплый свет и природная композиция с камнями.</div>
       <ul class="specs-data"><li>Размер: 16 × 16 × 20 см</li><li>Питание: 2 батарейки AA</li><li>Натуральные камни</li></ul>
@@ -214,6 +259,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Декоративная композиция с плавным течением воды, подсветкой и камнями.</div>
     <div class="price">135 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Декоративная композиция с плавным течением воды, подсветкой и камнями.</div>
       <ul class="specs-data"><li>Размер: 16 × 16 × 26 см</li><li>Натуральные камни</li><li>Мягкая подсветка</li></ul>
@@ -231,6 +277,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Фонтан с LED-подсветкой, натуральными камнями и стильным дизайном.</div>
     <div class="price">250 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Фонтан с LED-подсветкой, натуральными камнями и стильным дизайном.</div>
       <ul class="specs-data"><li>LED-подсветка</li><li>Натуральные камни</li><li>Автоотключение при недостатке воды</li></ul>
@@ -248,6 +295,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Декоративный фонтан с плавным течением воды, тихой работой и компактным дизайном.</div>
     <div class="price">280 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Декоративный фонтан с плавным течением воды, тихой работой и компактным дизайном.</div>
       <ul class="specs-data"><li>Высота: 31 см</li><li>Ширина: 22 см</li><li>Длина: 21,5 см</li><li>Вес: 920 г</li></ul>
@@ -265,6 +313,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Автономный светильник на солнечной энергии для дома, двора и участка.</div>
     <div class="price">145 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Автономный светильник на солнечной энергии для дома, двора и участка.</div>
       <ul class="specs-data"><li>Солнечная панель</li><li>Датчик движения</li><li>Угол освещения: 180°</li><li>Защита IP65</li><li>До 12 часов работы</li></ul>
@@ -282,6 +331,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Настенный светильник без проводов и электричества с датчиком движения.</div>
     <div class="price">70 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Настенный светильник без проводов и электричества с датчиком движения.</div>
       <ul class="specs-data"><li>Солнечная панель</li><li>Датчик движения</li><li>7 LED</li><li>Защита IP65</li><li>Угол освещения: 180°</li></ul>
@@ -299,6 +349,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Яркий налобный фонарь с USB-зарядкой для работы, отдыха и активного отдыха.</div>
     <div class="price">65 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Яркий налобный фонарь с USB-зарядкой для работы, отдыха и активного отдыха.</div>
       <ul class="specs-data"><li>700 люмен</li><li>USB-зарядка</li><li>5 режимов</li><li>До 8 часов работы</li><li>Вес: 85 г</li><li>Защита IPX4</li></ul>
@@ -316,6 +367,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Компактный USB-вентилятор с UV-подсветкой, 3 режимами и регулируемым углом.</div>
     <div class="price">35 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Компактный USB-вентилятор с UV-подсветкой, 3 режимами и регулируемым углом.</div>
       <ul class="specs-data"><li>3 режима обдува</li><li>UV-подсветка</li><li>USB-питание</li><li>Регулируемый угол наклона</li><li>Тихая работа</li></ul>
@@ -333,6 +385,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Воскоплав с чашей 500 мл для удобного разогрева воска.</div>
     <div class="price">65 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Воскоплав с чашей 500 мл для удобного разогрева воска.</div>
       <ul class="specs-data"><li>Объём: 500 мл</li><li>Быстрый нагрев</li><li>Термостойкий корпус</li><li>Подходит для разных видов воска</li><li>Легко очищается</li></ul>
@@ -350,6 +403,7 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     <div class="text">Профессиональный набор для укладки волос с несколькими насадками.</div>
     <div class="price">885 000 сум</div>
     <button class="details-btn" onclick="openProduct(this.closest('.card').querySelector('.photo'));event.stopPropagation()">Подробнее</button>
+    <button class="add-cart-btn" onclick="addCardToCart(this.closest(\'.card\'));event.stopPropagation()">В корзину</button>
     <div class="product-data">
       <div class="short-desc">Профессиональный набор для укладки волос с несколькими насадками.</div>
       <ul class="specs-data"><li>Профессиональный формат</li><li>Несколько насадок</li><li>Для разных вариантов укладки</li></ul>
@@ -388,6 +442,31 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 <footer><strong>AVENZA</strong><p>EVERYDAY GOODS</p></footer>
 
 </body></html>
+
+<div class="cart-drawer" id="cartDrawer" aria-hidden="true">
+  <div class="cart-panel">
+    <div class="cart-head">
+      <h2>Ваша корзина <span id="cartTitleCount">(0)</span></h2>
+      <button class="cart-close" id="closeCart" aria-label="Закрыть">×</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-bottom">
+      <div class="cart-total"><span>Итого</span><span id="cartTotal">0 сум</span></div>
+      <div class="order-form">
+        <input id="customerName" type="text" placeholder="Ваше имя">
+        <input id="customerPhone" type="tel" placeholder="Телефон для связи">
+        <textarea id="customerComment" placeholder="Комментарий к заказу (необязательно)"></textarea>
+      </div>
+      <div class="order-buttons">
+        <button class="order-btn order-whatsapp" onclick="sendOrderWhatsApp()">Заказать в WhatsApp</button>
+        <button class="order-btn order-telegram" onclick="sendOrderTelegram()">Заказать в Telegram</button>
+      </div>
+      <div class="order-note">Товары, количество и итоговая сумма автоматически попадут в сообщение. Перед отправкой проверьте данные заказа.</div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast">Товар добавлен в корзину</div>
+
 <div class="product-modal" id="productModal" aria-hidden="true">
   <div class="product-modal-box">
     <button class="product-close" onclick="closeProduct()">×</button>
@@ -404,6 +483,174 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
     </div>
   </div>
 </div>
+
+
+<script>
+const CART_KEY = 'avenza_cart_v1';
+let cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+
+function money(n){
+  return new Intl.NumberFormat('ru-RU').format(n).replace(/\u00a0/g,' ') + ' сум';
+}
+
+function parsePrice(text){
+  const n = (text || '').replace(/[^\d]/g,'');
+  return Number(n || 0);
+}
+
+function saveCart(){
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  renderCart();
+}
+
+function productFromCard(card){
+  const img = card.querySelector('.photo img');
+  return {
+    id: (card.querySelector('h3')?.textContent || '') + '|' + (card.querySelector('.price')?.textContent || ''),
+    title: card.querySelector('h3')?.textContent?.trim() || 'Товар',
+    price: parsePrice(card.querySelector('.price')?.textContent || ''),
+    image: img?.getAttribute('src') || '',
+    short: card.querySelector('.short-desc')?.textContent?.trim() || ''
+  };
+}
+
+function addCardToCart(card){
+  const p = productFromCard(card);
+  const existing = cart.find(x => x.id === p.id);
+  if(existing) existing.qty += 1;
+  else cart.push({...p, qty:1});
+  saveCart();
+  showToast('Товар добавлен в корзину');
+}
+
+function changeQty(id, delta){
+  const item = cart.find(x=>x.id===id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0) cart = cart.filter(x=>x.id!==id);
+  saveCart();
+}
+
+function removeFromCart(id){
+  cart = cart.filter(x=>x.id!==id);
+  saveCart();
+}
+
+function renderCart(){
+  const items = document.getElementById('cartItems');
+  const count = cart.reduce((s,x)=>s+x.qty,0);
+  const total = cart.reduce((s,x)=>s+x.price*x.qty,0);
+
+  document.getElementById('cartCount').textContent = count;
+  document.getElementById('cartTitleCount').textContent = '(' + count + ')';
+  document.getElementById('cartTotal').textContent = money(total);
+
+  if(!cart.length){
+    items.innerHTML = '<div class="cart-empty">Корзина пока пуста.<br>Добавьте товары, которые хотите заказать.</div>';
+    return;
+  }
+
+  items.innerHTML = cart.map(x => `
+    <div class="cart-item">
+      <img src="${x.image}" alt="">
+      <div>
+        <h4>${escapeHtml(x.title)}</h4>
+        <div class="cart-item-price">${money(x.price)} × ${x.qty}</div>
+        <div class="qty">
+          <button onclick="changeQty('${escapeJs(x.id)}',-1)">−</button>
+          <span>${x.qty}</span>
+          <button onclick="changeQty('${escapeJs(x.id)}',1)">+</button>
+        </div>
+      </div>
+      <button class="remove-item" onclick="removeFromCart('${escapeJs(x.id)}')" title="Удалить">×</button>
+    </div>
+  `).join('');
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+function escapeJs(s){
+  return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+}
+
+function openCart(){
+  document.getElementById('cartDrawer').classList.add('open');
+  document.body.style.overflow='hidden';
+  renderCart();
+}
+function closeCart(){
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function buildOrderText(){
+  const name = document.getElementById('customerName').value.trim();
+  const phone = document.getElementById('customerPhone').value.trim();
+  const comment = document.getElementById('customerComment').value.trim();
+
+  if(!cart.length){
+    showToast('Корзина пуста');
+    return null;
+  }
+  if(!name || !phone){
+    showToast('Укажите имя и телефон');
+    return null;
+  }
+
+  const lines = cart.map((x,i) =>
+    `${i+1}. ${x.title} — ${x.qty} шт. × ${money(x.price)} = ${money(x.price*x.qty)}`
+  );
+  const total = cart.reduce((s,x)=>s+x.price*x.qty,0);
+
+  return [
+    'Здравствуйте! Хочу оформить заказ в AVENZA.',
+    '',
+    ...lines,
+    '',
+    `Итого: ${money(total)}`,
+    `Имя: ${name}`,
+    `Телефон: ${phone}`,
+    comment ? `Комментарий: ${comment}` : ''
+  ].filter(Boolean).join('\n');
+}
+
+function sendOrderWhatsApp(){
+  const text = buildOrderText();
+  if(!text) return;
+  const url = 'https://wa.me/998945541806?text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
+}
+
+function sendOrderTelegram(){
+  const text = buildOrderText();
+  if(!text) return;
+  // Telegram share opens the user's Telegram app/site with the prepared order text.
+  const url = 'https://t.me/share/url?url=' + encodeURIComponent('https://avenza-1.github.io/avenza-catalog/') + '&text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
+}
+
+function showToast(text){
+  const t=document.getElementById('toast');
+  t.textContent=text;
+  t.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer=setTimeout(()=>t.classList.remove('show'),1800);
+}
+
+document.getElementById('openCart')?.addEventListener('click', e=>{
+  e.preventDefault();
+  openCart();
+});
+document.getElementById('closeCart')?.addEventListener('click', closeCart);
+document.getElementById('cartDrawer')?.addEventListener('click', e=>{
+  if(e.target.id==='cartDrawer') closeCart();
+});
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closeCart();
+});
+renderCart();
+</script>
 
 <script>
 let currentMedia = [];
