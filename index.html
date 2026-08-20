@@ -211,6 +211,21 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   .language-switcher span{display:none}
 }
 </style>
+
+<style id="avenza-related-style">
+.related-title{margin:28px 0 12px;font-size:18px;color:#222}
+.related-products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.related-card{border:1px solid #eee3db;border-radius:14px;overflow:hidden;background:#fff;cursor:pointer;transition:.2s}
+.related-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(0,0,0,.08)}
+.related-card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.related-card-info{padding:9px 10px 11px}
+.related-card-title{font-size:13px;font-weight:600;line-height:1.3;color:#222;margin-bottom:5px}
+.related-card-price{font-size:13px;font-weight:700;color:#333}
+@media(max-width:700px){
+  .related-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .related-title{font-size:16px}
+}
+</style>
 </head>
 <body>
 <header><div class="container nav">
@@ -899,6 +914,9 @@ function askAboutProduct(button){
 <div class="modal-price" id="modalPrice"></div>
 <div class="short-block"><strong>Краткое описание</strong><div id="modalShort"></div></div>
 <h3 class="spec-title">Характеристики</h3>
+<h3 class="related-title">Вам также может понравиться</h3>
+<div class="related-products" id="relatedProducts"></div>
+
 <ul class="spec-list" id="modalSpecs"></ul>
 <div class="media-help">Для добавления нескольких фото или видео укажите их названия через запятую в data-media, например: photo1.webp, photo2.webp, video.mp4.</div>
 </div>
@@ -1161,9 +1179,53 @@ function openProduct(photoEl){
   document.getElementById('modalSpecs').innerHTML =
     card.querySelector('.specs-data')?.innerHTML || '<li>Характеристики пока не добавлены</li>';
 
+  renderRelatedProducts(card);
   renderMedia(0);
   document.getElementById('productModal').classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+
+function renderRelatedProducts(currentCard){
+  const container = document.getElementById('relatedProducts');
+  if(!container) return;
+
+  const currentCategory = currentCard.querySelector('.category')?.textContent.trim() || '';
+  const cards = Array.from(document.querySelectorAll('.products .card'))
+    .filter(card => card !== currentCard);
+
+  // First show products from the same category, then fill with decor/lighting/home.
+  const sameCategory = cards.filter(card => (card.querySelector('.category')?.textContent.trim() || '') === currentCategory);
+  const preferred = cards.filter(card => ['Декор','Освещение','Для дома'].includes(card.querySelector('.category')?.textContent.trim() || ''));
+  const pool = [...sameCategory, ...preferred, ...cards];
+
+  const unique=[];
+  const seen=new Set();
+  for(const card of pool){
+    const title=(card.querySelector('h3')?.textContent||'').trim();
+    if(!title || seen.has(title)) continue;
+    seen.add(title);
+    unique.push(card);
+    if(unique.length>=3) break;
+  }
+
+  container.innerHTML = unique.map((card,index)=>{
+    const img=card.querySelector('.photo img');
+    const title=(card.querySelector('h3')?.textContent||'').trim();
+    const price=(card.querySelector('.price')?.textContent||'').trim();
+    const src=img?.getAttribute('src')||'';
+    return `<button class="related-card" type="button" onclick="openProduct(this.closest('.related-card')._sourceCard.querySelector('.photo'));event.stopPropagation()">
+      <img src="${escapeHtml(src)}" alt="${escapeHtml(title)}">
+      <div class="related-card-info">
+        <div class="related-card-title">${escapeHtml(title)}</div>
+        <div class="related-card-price">${escapeHtml(price)}</div>
+      </div>
+    </button>`;
+  }).join('');
+
+  // Attach source card references without exposing them in HTML.
+  const buttons=container.querySelectorAll('.related-card');
+  buttons.forEach((button,i)=>{ button._sourceCard=unique[i]; });
 }
 
 function renderMedia(index){
