@@ -226,6 +226,42 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   .related-title{font-size:16px}
 }
 </style>
+
+<style id="avenza-bottom-nav-style">
+.mobile-bottom-nav{display:none}
+@media(max-width:700px){
+  body{padding-bottom:78px}
+  .support-float{bottom:88px!important}
+  .mobile-bottom-nav{
+    position:fixed;left:0;right:0;bottom:0;z-index:1250;
+    display:grid;grid-template-columns:repeat(5,1fr);
+    min-height:68px;padding:7px 6px calc(7px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.97);
+    border-top:1px solid #e8e4df;
+    box-shadow:0 -5px 20px rgba(0,0,0,.08);
+    backdrop-filter:blur(12px);
+  }
+  .mobile-nav-item{
+    position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:3px;min-width:0;border:0;background:transparent;color:#858585;
+    text-decoration:none;font:600 10px/1.15 Arial,sans-serif;cursor:pointer;
+    border-radius:12px;padding:3px 2px;
+  }
+  .mobile-nav-item.active{color:#222}
+  .mobile-nav-item.active .mobile-nav-icon{
+    transform:translateY(-1px);font-weight:800
+  }
+  .mobile-nav-icon{font-size:25px;line-height:25px;font-family:Arial,sans-serif}
+  .mobile-nav-item:nth-child(4) .mobile-nav-icon{font-size:21px}
+  .mobile-nav-badge{
+    position:absolute;top:1px;right:20%;
+    min-width:16px;height:16px;padding:0 4px;border-radius:9px;
+    background:#222;color:#fff;font:700 9px/16px Arial,sans-serif;
+    text-align:center;display:none;
+  }
+  .mobile-nav-badge.show{display:block}
+}
+</style>
 </head>
 <body>
 <header><div class="container nav">
@@ -879,6 +915,90 @@ function askAboutProduct(button){
   observer.observe(document.body,{childList:true,subtree:true});
 })();
 </script>
+
+<nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Нижнее меню">
+  <a href="#" class="mobile-nav-item active" data-nav="home">
+    <span class="mobile-nav-icon">⌂</span><span>Главная</span>
+  </a>
+  <a href="#catalog" class="mobile-nav-item" data-nav="catalog">
+    <span class="mobile-nav-icon">▦</span><span>Каталог</span>
+  </a>
+  <a href="#favorites" class="mobile-nav-item" data-nav="favorites" id="mobileFavorites">
+    <span class="mobile-nav-icon">♡</span><span>Избранное</span>
+    <b class="mobile-nav-badge" id="mobileFavoritesCount">0</b>
+  </a>
+  <button type="button" class="mobile-nav-item" data-nav="cart" id="mobileCart">
+    <span class="mobile-nav-icon">🛒</span><span>Корзина</span>
+    <b class="mobile-nav-badge" id="mobileCartCount">0</b>
+  </button>
+  <a href="https://t.me/AVENZA_support_bot" target="_blank" rel="noopener" class="mobile-nav-item" data-nav="support">
+    <span class="mobile-nav-icon">♧</span><span>Поддержка</span>
+  </a>
+</nav>
+
+
+<script id="avenza-bottom-nav-script">
+(function(){
+  const nav=document.getElementById('mobileBottomNav');
+  if(!nav) return;
+
+  const items=nav.querySelectorAll('.mobile-nav-item');
+  function setActive(name){
+    items.forEach(x=>x.classList.toggle('active',x.dataset.nav===name));
+  }
+
+  const cartBtn=document.getElementById('mobileCart');
+  if(cartBtn){
+    cartBtn.addEventListener('click',function(){
+      setActive('cart');
+      if(typeof openCart==='function') openCart();
+    });
+  }
+
+  const fav=document.getElementById('mobileFavorites');
+  if(fav){
+    fav.addEventListener('click',function(e){
+      e.preventDefault();
+      const desktop=document.getElementById('openFavorites');
+      if(desktop) desktop.click();
+      setActive('favorites');
+    });
+  }
+
+  nav.querySelector('[data-nav="home"]')?.addEventListener('click',()=>setActive('home'));
+  nav.querySelector('[data-nav="catalog"]')?.addEventListener('click',()=>{
+    setActive('catalog');
+    setTimeout(()=>document.getElementById('catalog')?.scrollIntoView({behavior:'smooth'}),0);
+  });
+
+  function syncCounts(){
+    const fc=document.getElementById('favoritesCount');
+    const cc=document.getElementById('cartCount');
+    const mf=document.getElementById('mobileFavoritesCount');
+    const mc=document.getElementById('mobileCartCount');
+    if(mf && fc){
+      mf.textContent=fc.textContent||'0';
+      mf.classList.toggle('show',Number(fc.textContent||0)>0);
+    }
+    if(mc && cc){
+      mc.textContent=cc.textContent||'0';
+      mc.classList.toggle('show',Number(cc.textContent||0)>0);
+    }
+  }
+
+  syncCounts();
+  setInterval(syncCounts,500);
+
+  const support=nav.querySelector('[data-nav="support"]');
+  if(support) support.addEventListener('click',()=>setActive('support'));
+
+  window.addEventListener('scroll',()=>{
+    if(window.scrollY<120) setActive('home');
+    else if(window.location.hash==='#catalog') setActive('catalog');
+  },{passive:true});
+})();
+</script>
+
 </body></html>
 <div aria-hidden="true" class="cart-drawer" id="cartDrawer">
 <div class="cart-panel">
