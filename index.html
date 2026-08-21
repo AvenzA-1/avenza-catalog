@@ -262,6 +262,26 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
   .mobile-nav-badge.show{display:block}
 }
 </style>
+
+<style id="avenza-profile-style">
+.profile-modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:1600;padding:18px}
+.profile-modal.open{display:flex}
+.profile-box{position:relative;width:min(430px,100%);background:#fff;border-radius:22px;padding:30px 24px;box-shadow:0 20px 70px rgba(0,0,0,.25)}
+.profile-close{position:absolute;right:14px;top:10px;border:0;background:none;font-size:30px;color:#777;cursor:pointer}
+.profile-icon{width:54px;height:54px;border-radius:50%;background:#f4f2ee;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 12px}
+.profile-box h2{text-align:center;margin:0 0 8px;font-size:24px}
+.profile-subtitle{text-align:center;color:#777;font-size:13px;line-height:1.5;margin:0 0 22px}
+.profile-box label{display:block;font-size:13px;font-weight:600;margin:13px 0 7px}
+.profile-box input{width:100%;box-sizing:border-box;padding:13px 14px;border:1px solid #ddd;border-radius:12px;font-size:15px;outline:none}
+.profile-box input:focus{border-color:#222}
+.profile-save,.profile-edit{width:100%;margin-top:18px;padding:14px;border:0;border-radius:12px;background:#222;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+.profile-edit{background:#f1efeb;color:#222}
+.profile-note{text-align:center;color:#999;font-size:11px;margin:12px 0 0}
+.profile-success{text-align:center;font-size:34px;margin:8px 0}
+#profileSaved h3{text-align:center;margin:5px 0 8px}
+#profileSavedText{text-align:center;color:#666;font-size:14px;line-height:1.5}
+@media(min-width:701px){.profile-modal{display:none!important}}
+</style>
 </head>
 <body>
 <header><div class="container nav">
@@ -916,6 +936,32 @@ function askAboutProduct(button){
 })();
 </script>
 
+
+<div class="profile-modal" id="profileModal" aria-hidden="true">
+  <div class="profile-box">
+    <button class="profile-close" id="closeProfile" aria-label="Закрыть">×</button>
+    <div class="profile-icon">♙</div>
+    <h2 data-i18n="profileTitle">Регистрация</h2>
+    <p class="profile-subtitle" data-i18n="profileSubtitle">Создайте профиль, чтобы ваши данные было удобно использовать при оформлении заказа.</p>
+
+    <div id="profileForm">
+      <label data-i18n="profileNameLabel">Ваше имя</label>
+      <input id="profileName" type="text" placeholder="Введите имя" data-i18n-placeholder="namePlaceholder">
+      <label data-i18n="profilePhoneLabel">Номер телефона</label>
+      <input id="profilePhone" type="tel" placeholder="+998 __ ___ __ __" data-i18n-placeholder="phonePlaceholder">
+      <button class="profile-save" id="saveProfile" type="button" data-i18n="saveProfile">Зарегистрироваться</button>
+      <p class="profile-note" data-i18n="profileNote">Данные сохраняются только на этом устройстве.</p>
+    </div>
+
+    <div id="profileSaved" style="display:none">
+      <div class="profile-success">✓</div>
+      <h3 data-i18n="profileWelcome">Профиль сохранён</h3>
+      <p id="profileSavedText"></p>
+      <button class="profile-edit" id="editProfile" type="button" data-i18n="editProfile">Изменить данные</button>
+    </div>
+  </div>
+</div>
+
 <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Нижнее меню">
   <a href="#" class="mobile-nav-item active" data-nav="home">
     <span class="mobile-nav-icon">⌂</span><span>Главная</span>
@@ -931,9 +977,9 @@ function askAboutProduct(button){
     <span class="mobile-nav-icon">🛒</span><span>Корзина</span>
     <b class="mobile-nav-badge" id="mobileCartCount">0</b>
   </button>
-  <a href="https://t.me/AVENZA_support_bot" target="_blank" rel="noopener" class="mobile-nav-item" data-nav="support">
-    <span class="mobile-nav-icon">♧</span><span>Поддержка</span>
-  </a>
+  <button type="button" class="mobile-nav-item" data-nav="profile" id="mobileProfile">
+    <span class="mobile-nav-icon">♙</span><span data-i18n="profile">Регистрация</span>
+  </button>
 </nav>
 
 
@@ -989,13 +1035,75 @@ function askAboutProduct(button){
   syncCounts();
   setInterval(syncCounts,500);
 
-  const support=nav.querySelector('[data-nav="support"]');
-  if(support) support.addEventListener('click',()=>setActive('support'));
+  const profile=nav.querySelector('[data-nav="profile"]');
+  if(profile) profile.addEventListener('click',()=>setActive('profile'));
 
   window.addEventListener('scroll',()=>{
     if(window.scrollY<120) setActive('home');
     else if(window.location.hash==='#catalog') setActive('catalog');
   },{passive:true});
+})();
+</script>
+
+
+<script id="avenza-profile-script">
+(function(){
+  const modal=document.getElementById('profileModal');
+  const form=document.getElementById('profileForm');
+  const saved=document.getElementById('profileSaved');
+  const name=document.getElementById('profileName');
+  const phone=document.getElementById('profilePhone');
+  const savedText=document.getElementById('profileSavedText');
+  const KEY='avenza_profile_v1';
+
+  function getProfile(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){return null}}
+  function renderProfile(){
+    const p=getProfile();
+    if(p){
+      form.style.display='none'; saved.style.display='block';
+      savedText.textContent=(p.name||'')+(p.phone?' • '+p.phone:'');
+    }else{
+      form.style.display='block'; saved.style.display='none';
+      name.value=''; phone.value='';
+    }
+  }
+  function openProfile(){
+    renderProfile(); modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+  }
+  function closeProfile(){
+    modal.classList.remove('open'); modal.setAttribute('aria-hidden','true');
+  }
+  document.getElementById('mobileProfile')?.addEventListener('click',openProfile);
+  document.getElementById('closeProfile')?.addEventListener('click',closeProfile);
+  modal?.addEventListener('click',e=>{if(e.target===modal) closeProfile()});
+  document.getElementById('saveProfile')?.addEventListener('click',()=>{
+    const n=name.value.trim(), p=phone.value.trim();
+    if(!n){name.focus();return}
+    localStorage.setItem(KEY,JSON.stringify({name:n,phone:p}));
+    renderProfile();
+  });
+  document.getElementById('editProfile')?.addEventListener('click',()=>{
+    const p=getProfile(); form.style.display='block'; saved.style.display='none';
+    name.value=p?.name||''; phone.value=p?.phone||'';
+  });
+})();
+</script>
+
+
+<script id="avenza-profile-i18n">
+(function(){
+ const T={
+  ru:{profile:'Регистрация',profileTitle:'Регистрация',profileSubtitle:'Создайте профиль, чтобы ваши данные было удобно использовать при оформлении заказа.',profileNameLabel:'Ваше имя',profilePhoneLabel:'Номер телефона',namePlaceholder:'Введите имя',phonePlaceholder:'+998 __ ___ __ __',saveProfile:'Зарегистрироваться',profileNote:'Данные сохраняются только на этом устройстве.',profileWelcome:'Профиль сохранён',editProfile:'Изменить данные'},
+  uz:{profile:'Ro‘yxatdan o‘tish',profileTitle:'Ro‘yxatdan o‘tish',profileSubtitle:'Buyurtma berishda ma’lumotlaringizdan qulay foydalanish uchun profil yarating.',profileNameLabel:'Ismingiz',profilePhoneLabel:'Telefon raqami',namePlaceholder:'Ismingizni kiriting',phonePlaceholder:'+998 __ ___ __ __',saveProfile:'Ro‘yxatdan o‘tish',profileNote:'Ma’lumotlar faqat ushbu qurilmada saqlanadi.',profileWelcome:'Profil saqlandi',editProfile:'Ma’lumotlarni o‘zgartirish'},
+  en:{profile:'Register',profileTitle:'Registration',profileSubtitle:'Create a profile so your details are convenient to use when placing an order.',profileNameLabel:'Your name',profilePhoneLabel:'Phone number',namePlaceholder:'Enter your name',phonePlaceholder:'+998 __ ___ __ __',saveProfile:'Register',profileNote:'Your data is saved only on this device.',profileWelcome:'Profile saved',editProfile:'Edit details'}
+ };
+ function apply(){
+  const lang=document.getElementById('languageSelect')?.value||'ru', d=T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(d[k])el.textContent=d[k]});
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const k=el.dataset.i18nPlaceholder;if(d[k])el.placeholder=d[k]});
+ }
+ document.getElementById('languageSelect')?.addEventListener('change',()=>setTimeout(apply,0));
+ apply();
 })();
 </script>
 
