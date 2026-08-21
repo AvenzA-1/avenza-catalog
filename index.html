@@ -282,6 +282,14 @@ footer strong{letter-spacing:5px}footer p{color:#aaa;font-size:12px}
 #profileSavedText{text-align:center;color:#666;font-size:14px;line-height:1.5}
 @media(min-width:701px){.profile-modal{display:none!important}}
 </style>
+
+<style id="avenza-order-profile-style">
+.order-profile{border:1px solid #e5e5e5;border-radius:12px;padding:12px 14px;margin-bottom:10px;background:#fafafa}
+.order-profile-title{font-size:13px;font-weight:700;margin-bottom:6px}
+.order-profile-data{font-size:14px;line-height:1.45;color:#555}
+.order-profile-edit{margin-top:8px;border:0;background:none;padding:0;font-size:12px;color:#555;text-decoration:underline;cursor:pointer}
+.order-form textarea#customerComment{margin-top:8px}
+</style>
 </head>
 <body>
 <header><div class="container nav">
@@ -1107,6 +1115,26 @@ function askAboutProduct(button){
 })();
 </script>
 
+
+<script id="avenza-order-profile-script">
+(function(){
+  const originalOpenCart = window.openCart;
+  window.openCart = function(){
+    syncOrderProfile();
+    return originalOpenCart.apply(this, arguments);
+  };
+  document.getElementById('orderProfileEdit')?.addEventListener('click',()=>{
+    document.getElementById('mobileProfile')?.click();
+  });
+  window.addEventListener('storage',()=>syncOrderProfile());
+  document.addEventListener('click',(e)=>{
+    if(e.target?.id==='saveProfile' || e.target?.id==='editProfile'){
+      setTimeout(syncOrderProfile,50);
+    }
+  });
+  setTimeout(syncOrderProfile,0);
+})();
+</script>
 </body></html>
 <div aria-hidden="true" class="cart-drawer" id="cartDrawer">
 <div class="cart-panel">
@@ -1118,8 +1146,11 @@ function askAboutProduct(button){
 <div class="cart-bottom">
 <div class="cart-total"><span>Итого</span><span id="cartTotal">0 сум</span></div>
 <div class="order-form">
-<input id="customerName" placeholder="Ваше имя" type="text"/>
-<input id="customerPhone" placeholder="Телефон для связи" type="tel"/>
+<div class="order-profile" id="orderProfile">
+  <div class="order-profile-title">👤 Данные покупателя</div>
+  <div class="order-profile-data" id="orderProfileData">Войдите через «Регистрация», чтобы оформить заказ.</div>
+  <button type="button" class="order-profile-edit" id="orderProfileEdit">Изменить профиль</button>
+</div>
 <textarea id="customerComment" placeholder="Комментарий к заказу (необязательно)"></textarea>
 </div>
 <div class="order-buttons">
@@ -1263,17 +1294,34 @@ function closeCart(){
   document.body.style.overflow='';
 }
 
+function getAvenzaProfile(){
+  try { return JSON.parse(localStorage.getItem('avenza_profile_v1') || 'null'); }
+  catch(e){ return null; }
+}
+
+function syncOrderProfile(){
+  const box=document.getElementById('orderProfileData');
+  const p=getAvenzaProfile();
+  if(!box) return p;
+  if(p && (p.name || p.phone)){
+    box.innerHTML = `<strong>${escapeHtml(p.name || '—')}</strong><br>${escapeHtml(p.phone || '—')}`;
+  }else{
+    box.textContent = 'Войдите через «Регистрация», чтобы оформить заказ.';
+  }
+  return p;
+}
+
 function buildOrderText(){
-  const name = document.getElementById('customerName').value.trim();
-  const phone = document.getElementById('customerPhone').value.trim();
+  const profile = getAvenzaProfile();
   const comment = document.getElementById('customerComment').value.trim();
 
   if(!cart.length){
     showToast('Корзина пуста');
     return null;
   }
-  if(!name || !phone){
-    showToast('Укажите имя и телефон');
+  if(!profile || !profile.name || !profile.phone){
+    showToast('Сначала зарегистрируйтесь');
+    document.getElementById('mobileProfile')?.click();
     return null;
   }
 
@@ -1288,12 +1336,11 @@ function buildOrderText(){
     ...lines,
     '',
     `Итого: ${money(total)}`,
-    `Имя: ${name}`,
-    `Телефон: ${phone}`,
+    `Имя: ${profile.name}`,
+    `Телефон: ${profile.phone}`,
     comment ? `Комментарий: ${comment}` : ''
   ].filter(Boolean).join('\n');
 }
-
 function sendOrderWhatsApp(){
   const text = buildOrderText();
   if(!text) return;
